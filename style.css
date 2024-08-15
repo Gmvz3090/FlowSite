@@ -6,22 +6,126 @@ body {
     margin: 0;
     background-color: white;
 }
+
 .board {
-    width: 500px;
-    height: 500px;
+    width: 700px;
+    height: 700px;
     background-color: lightgray;
     border: 5px solid #333;
     position: relative;
 }
+
 .sprite {
     width: 50px;
     height: 50px;
-    background-color: gray;
     position: absolute;
+    cursor: grab;
+}
+
+.square {
+    background-color: #90c29e;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: grab;
     border-radius: 5px;
-    border : 3px solid #333
+    border: 2px solid #333;
+}
+
+.triangle-container {
+    width: 0;
+    height: 0;
+    border-left: 28px solid transparent;
+    border-right: 28px solid transparent;
+    border-bottom: 56px solid #333; /* Border acts as the border of the triangle */
+    position: relative;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 50px solid #e0d679; /* Inner triangle */
+    position: absolute;
+    top: calc(50% + 4px); /* Adjust top to align the center */
+    left: calc(50% - 25px); /* Adjust left to align the center */
+}
+
+.circle {
+    background-color: #d44570;
+    border-radius: 50%;
+    top: 10%;
+    left: 80%;
+    border: 2px solid #333;
+}
+
+/* Color Picker Styles */
+.color-picker {
+    display: none;
+    text-align: center;
+    border: 3px solid #333;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.palette {
+    display: flex;
+    flex-wrap: wrap; /* Wrap colors if there's not enough space */
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Palette Shape Styles */
+.color {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 5px;
+}
+
+.square-color {
+    border-radius: 5px;
+}
+
+
+[data-color="black"] {
+    background-color: #252321;
+}
+
+[data-color="white"] {
+    background-color: #f9f9f9;
+}
+
+[data-color="lightbrown"] {
+    background-color: #c07d57;
+}
+
+[data-color="blue"] {
+    background-color: #71b6b2;
+}
+
+[data-color="lightgreen"] {
+    background-color: #90c29e;
+}
+
+[data-color="lightpurple"] {
+    background-color: #9d6d9e;
+}
+
+[data-color="pink"] {
+    background-color: #d44570;
+}
+
+[data-color="lightyellow"] {
+    background-color: #e0d679;
+}
+
+[data-color="lightblue"] {
+    background-color: #89cad3;
+}
+
+[data-color="lightgreen2"] {
+    background-color: #94cd5b;
 }

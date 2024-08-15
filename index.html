@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2D Board with Draggable Sprite</title>
+    <title>2D Board with Draggable Sprites</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="board" id="board">
-    <div class="sprite" id="sprite"></div>
+    <div class="sprite square" id="square"></div>
+    <div class="sprite triangle-container" id="triangle-container">
+        <div class="triangle" id="triangle"></div>
+    </div>
+    <div class="sprite circle" id="circle"></div>
 </div>
+
+<div class="color-picker" id="colorPicker">
+    <h2>Choose a Color</h2>
+    <div class="palette" id="palette">
+        <div class="color" data-color="black"></div>
+        <div class="color" data-color="white"></div>
+        <div class="color" data-color="lightbrown"></div>
+        <div class="color" data-color="blue"></div>
+        <div class="color" data-color="lightgreen"></div>
+        <div class="color" data-color="lightpurple"></div>
+        <div class="color" data-color="pink"></div>
+        <div class="color" data-color="lightyellow"></div>
+        <div class="color" data-color="lightblue"></div>
+        <div class="color" data-color="lightgreen2"></div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
