@@ -1,2 +1,2 @@
-this is a funny little project about draging and dropping squares, circles and triangles.
-Don't look at it, its a part of a bigger project.
+This is a Website created by @as34mat1, for Flow project.
+You can view the current version at https://flow-xr.com/ or https://flow-xr.eu/

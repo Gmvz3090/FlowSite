@@ -8,16 +8,23 @@
 </head>
 <body>
 <div class="board" id="board">
-    <div class="sprite square" id="square"></div>
+    <div class="sprite square" id="square">
+        <div class="sprite-name">Square</div>
+    </div>
     <div class="sprite triangle-container" id="triangle-container">
         <div class="triangle" id="triangle"></div>
+        <div class="sprite-name">Triangle</div>
     </div>
-    <div class="sprite circle" id="circle"></div>
+    <div class="sprite circle" id="circle">
+        <div class="sprite-name">Circle</div>
+    </div>
 </div>
 
 <div class="color-picker" id="colorPicker">
-    <h2>Choose a Color</h2>
+    <label for="sprite-name-input">Name: </label>
+    <input type="text" id="sprite-name-input" placeholder="Enter sprite name">
     <div class="palette" id="palette">
+        <!-- Color options here -->
         <div class="color" data-color="black"></div>
         <div class="color" data-color="white"></div>
         <div class="color" data-color="lightbrown"></div>
@@ -28,6 +35,10 @@
         <div class="color" data-color="lightyellow"></div>
         <div class="color" data-color="lightblue"></div>
         <div class="color" data-color="lightgreen2"></div>
+    </div>
+    <div class="action-buttons">
+        <button id="declineButton">Decline</button>
+        <button id="acceptButton">Accept</button>
     </div>
 </div>
 

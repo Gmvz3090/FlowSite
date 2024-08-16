@@ -2,16 +2,18 @@ const sprites = document.querySelectorAll('.sprite');
 const board = document.getElementById('board');
 const colorPicker = document.getElementById('colorPicker');
 const colorOptions = document.querySelectorAll('.color');
-const palette = document.getElementById('palette');
+const nameInput = document.getElementById('sprite-name-input');
+const acceptButton = document.getElementById('acceptButton');
+const declineButton = document.getElementById('declineButton');
 
 let selectedSprite = null;
-let isDragging = false;
+let previousColorElement = null;
 
 sprites.forEach(sprite => {
     let offsetX, offsetY;
 
     sprite.addEventListener('mousedown', (e) => {
-        isDragging = false;  // Reset dragging flag on mousedown
+        isDragging = false;
         offsetX = e.clientX - sprite.getBoundingClientRect().left;
         offsetY = e.clientY - sprite.getBoundingClientRect().top;
 
@@ -20,7 +22,7 @@ sprites.forEach(sprite => {
     });
 
     function onMouseMove(e) {
-        isDragging = true;  // Set dragging flag when mouse is moved
+        isDragging = true;
         selectedSprite = sprite;
 
         const boardRect = board.getBoundingClientRect();
@@ -30,11 +32,10 @@ sprites.forEach(sprite => {
         let minOffset = 0;
         let maxOffset = -8;
 
-        if(selectedSprite.classList.contains('square')) {
+        if (selectedSprite.classList.contains('square')) {
             minOffset = 27;
             maxOffset = 18;
-        }
-        else {
+        } else {
             maxOffset = -10;
         }
 
@@ -56,37 +57,56 @@ sprites.forEach(sprite => {
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
 
-        if (!isDragging) {  // Only open color picker if not dragging
+        if (!isDragging) {
             selectedSprite = sprite;
 
-            // Show the color picker
+            // Update the name input field with the current sprite name
+            nameInput.value = selectedSprite.querySelector('.sprite-name').innerText;
+
+            // Show the color picker and name input
             board.style.display = 'none';
             colorPicker.style.display = 'block';
         }
 
-        isDragging = false;  // Reset dragging flag after mouse up
+        isDragging = false;
     }
 });
 
 colorOptions.forEach(colorOption => {
     colorOption.addEventListener('click', () => {
-        const selectedColor = colorOption.getAttribute('data-color');
-
-        // Change the selected sprite's color
-        if (selectedSprite.classList.contains('triangle-container')) {
-            selectedSprite.querySelector('.triangle').style.borderBottomColor = getComputedStyle(colorOption).backgroundColor;
-        } else {
-            selectedSprite.style.backgroundColor = getComputedStyle(colorOption).backgroundColor;
+        // Remove the outer border from the previously selected color
+        if (previousColorElement) {
+            previousColorElement.classList.remove('selected');
         }
 
-        // Hide the color picker and show the board again
-        colorPicker.style.display = 'none';
-        board.style.display = 'block';
+        // Update the current color option
+        previousColorElement = colorOption;
+        colorOption.classList.add('selected');
     });
 });
 
-function updatePaletteShapes(sprite) {
-    colorOptions.forEach(color => {
-        color.classList.add('square-color');
-    });
-}
+acceptButton.addEventListener('click', () => {
+    if (selectedSprite) {
+        if (previousColorElement) {
+            const color = getComputedStyle(previousColorElement).backgroundColor;
+
+            if (selectedSprite.classList.contains('triangle-container')) {
+                selectedSprite.querySelector('.triangle').style.borderBottomColor = color;
+            } else {
+                selectedSprite.style.backgroundColor = color;
+            }
+        }
+
+        selectedSprite.querySelector('.sprite-name').innerText = nameInput.value;
+    }
+
+    // Hide the color picker and show the board again
+    colorPicker.style.display = 'none';
+    board.style.display = 'block';
+});
+
+declineButton.addEventListener('click', () => {
+    // Hide the color picker and show the board again
+    colorPicker.style.display = 'none';
+    board.style.display = 'block';
+});

@@ -22,6 +22,17 @@ body {
     cursor: grab;
 }
 
+.sprite-name {
+    position: absolute;
+    top: -20px; /* Position the name above the sprite */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
 .square {
     background-color: #90c29e;
     top: 50%;
@@ -36,7 +47,7 @@ body {
     height: 0;
     border-left: 28px solid transparent;
     border-right: 28px solid transparent;
-    border-bottom: 56px solid #333; /* Border acts as the border of the triangle */
+    border-bottom: 56px solid #333;
     position: relative;
 }
 
@@ -45,10 +56,10 @@ body {
     height: 0;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-bottom: 50px solid #e0d679; /* Inner triangle */
+    border-bottom: 50px solid #e0d679;
     position: absolute;
-    top: calc(50% + 4px); /* Adjust top to align the center */
-    left: calc(50% - 25px); /* Adjust left to align the center */
+    top: calc(50% + 4px);
+    left: calc(50% - 25px);
 }
 
 .circle {
@@ -59,73 +70,89 @@ body {
     border: 2px solid #333;
 }
 
-/* Color Picker Styles */
 .color-picker {
-    display: none;
+    display: none; /* Hidden by default */
     text-align: center;
     border: 3px solid #333;
     background-color: white;
     padding: 20px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    position: relative; /* Ensure relative positioning for inner absolute elements */
+}
+
+.color-picker input {
+    margin-bottom: 20px; /* Adds space */
+    padding: 5px;
+    font-size: 16px;
+    width: 80%;
+    box-sizing: border-box;
 }
 
 .palette {
     display: flex;
-    flex-wrap: wrap; /* Wrap colors if there's not enough space */
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
+    margin-bottom: 60px; /* Ensure there is space for buttons */
 }
 
-/* Palette Shape Styles */
 .color {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border: 5px solid white;
+    border-radius: 10px;
+    position: relative;
+}
+
+.color::before {
+    content: "";
+    position: absolute;
     width: 45px;
     height: 45px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.color.selected::before {
+    border-color: black; /* Highlight border for the selected color */
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: row; /* Arrange buttons in a row */
+    justify-content: flex-end; /* Align buttons to the right */
+    position: absolute; /* Position relative to .color-picker */
+    right: 20px; /* Distance from the right */
+    bottom: 20px; /* Distance from the bottom */
+    gap: 10px; /* Space between buttons */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #333;
+    color: white;
     cursor: pointer;
-    border: 2px solid #333;
-    border-radius: 5px;
+    border-radius: 7px;
 }
 
-.square-color {
-    border-radius: 5px;
+button:hover {
+    background-color: #555;
 }
 
-
-[data-color="black"] {
-    background-color: #252321;
-}
-
-[data-color="white"] {
-    background-color: #f9f9f9;
-}
-
-[data-color="lightbrown"] {
-    background-color: #c07d57;
-}
-
-[data-color="blue"] {
-    background-color: #71b6b2;
-}
-
-[data-color="lightgreen"] {
-    background-color: #90c29e;
-}
-
-[data-color="lightpurple"] {
-    background-color: #9d6d9e;
-}
-
-[data-color="pink"] {
-    background-color: #d44570;
-}
-
-[data-color="lightyellow"] {
-    background-color: #e0d679;
-}
-
-[data-color="lightblue"] {
-    background-color: #89cad3;
-}
-
-[data-color="lightgreen2"] {
-    background-color: #94cd5b;
-}
+[data-color="black"] { background-color: #252321; }
+[data-color="white"] { background-color: #f9f9f9; }
+[data-color="lightbrown"] { background-color: #c07d57; }
+[data-color="blue"] { background-color: #71b6b2; }
+[data-color="lightgreen"] { background-color: #90c29e; }
+[data-color="lightpurple"] { background-color: #9d6d9e; }
+[data-color="pink"] { background-color: #d44570; }
+[data-color="lightyellow"] { background-color: #e0d679; }
+[data-color="lightblue"] { background-color: #89cad3; }
+[data-color="lightgreen2"] { background-color: #94cd5b; }
