@@ -168,7 +168,7 @@ body {
     border-bottom: 50px solid #e0d679;
     position: absolute;
     top: calc(50% + 4px);
-    left: calc(50% - 24px);
+    left: calc(50% - 25px);
     z-index: 1;
 }
 
@@ -200,7 +200,7 @@ body {
     border-radius: 10px;
     position: relative;
     background-color: transparent;
-    border: 3px solid #333;
+    border: 2px solid #333;
 }
 
 .color-circles, .color-triangles {
@@ -213,7 +213,7 @@ body {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 3px solid #333;
+    border: 2px solid #333;
     background-color: transparent;
     cursor: pointer;
 }
@@ -236,7 +236,7 @@ body {
     border-bottom: 34px solid transparent;
     position: absolute;
     top: calc(50% + 4px);
-    left: calc(50% - 16px);
+    left: calc(50% - 17px);
 }
 
 [data-color="black"] { background-color: #252321; }
