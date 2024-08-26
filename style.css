@@ -10,39 +10,121 @@ body {
 
 .layout {
     display: flex;
+    align-items: flex-start;
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    max-width: 100vw;
-    box-sizing: border-box;
+    margin-top: 100px;
     position: relative;
 }
 
 .color-picker {
-    width: 162px;
-    text-align: center;
-    border: 3px solid #333;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    display: flex;
+    width: 162px; /* Width of the color-picker */
+    padding: 20px; /* Add padding for spacing */
+    border: 1px solid #333;
+    position: absolute;
+    left: -220px;
+    display: none;
     flex-direction: column;
-    gap: 20px;
+    align-items: center; /* Align content center */
+}
+
+/* Ensure color-picker shows on hover over left-panel or color-picker itself */
+.left-panel:hover .color-picker,
+.color-picker:hover {
+    display: flex; /* Show the color-picker when hovering over the left-panel or the color-picker */
+}
+
+.plus-button {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: #333;
+    border-radius: 50%;
+    border: 20px transparent;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-top: 660px;
 }
 
 .board {
-    width: 700px;
-    height: 700px;
-    background-color: lightgray;
-    border: 5px solid #333;
+    width: 856px;
+    height: 856px;
+    background: url('board.png') no-repeat center center;
     position: relative;
 }
 
 .sprite {
     width: 50px;
     height: 50px;
-    position: absolute;
+    position: relative;
     cursor: grab;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
+
+.sprite-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: transparent;
+    z-index: 1; /* Ensure it's above the sprite but below the trashcan */
+}
+
+.trashcan {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: url('trashcan-icon-removebg-preview.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    display: none;
+    border-radius: 50%;
+    border: 2px solid gray;
+    z-index: 100;
+}
+
+/* Ensure trashcan appears when hovering over the overlay */
+.sprite-overlay:hover + .trashcan {
+    display: block; /* Show trashcan on hover */
+}
+
+.sprite-arrow {
+    position: absolute;
+    width: 25px; /* Adjust size as needed */
+    height: 25px; /* Adjust size as needed */
+    top: 12px; /* Adjust based on sprite size */
+    left: 12px;
+    background: url('Arrow-Up-icon-removebg-preview.png') no-repeat center center;
+    background-size: contain;
+    display: block;
+    z-index: 100;
+}
+
+.rotation {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    left: 0;
+    background: url('rotation-removebg-preview.png') no-repeat center center;
+    background-size: contain;
+    cursor: pointer;
+    display: none;
+    border-radius: 50%;
+    border: 2px solid gray;
+    z-index: 100;
+}
+
 
 .sprite-name {
     position: absolute;
@@ -86,7 +168,7 @@ body {
     border-bottom: 50px solid #e0d679;
     position: absolute;
     top: calc(50% + 4px);
-    left: calc(50% - 25px);
+    left: calc(50% - 24px);
     z-index: 1;
 }
 
@@ -102,6 +184,7 @@ body {
 .palette-container {
     display: flex;
     gap: 20px;
+    margin-top: 20px;
 }
 
 .palette {
@@ -117,7 +200,7 @@ body {
     border-radius: 10px;
     position: relative;
     background-color: transparent;
-    border: 2px solid #333;
+    border: 3px solid #333;
 }
 
 .color-circles, .color-triangles {
@@ -130,7 +213,7 @@ body {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 2px solid #333;
+    border: 3px solid #333;
     background-color: transparent;
     cursor: pointer;
 }
@@ -153,7 +236,7 @@ body {
     border-bottom: 34px solid transparent;
     position: absolute;
     top: calc(50% + 4px);
-    left: calc(50% - 17px);
+    left: calc(50% - 16px);
 }
 
 [data-color="black"] { background-color: #252321; }

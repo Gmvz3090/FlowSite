@@ -8,32 +8,45 @@
 </head>
 <body>
 <div class="layout">
-    <div class="color-picker" id="colorPicker">
-        <h2>Dodaj nową figurę</h2>
-        <input type="text" id="sprite-name-input" placeholder="Nazwa">
-        <div class="palette-container">
-            <div class="palette" id="palette">
-                <div class="color" data-color="black"></div>
-                <div class="color" data-color="white"></div>
-                <div class="color" data-color="lightbrown"></div>
-                <div class="color" data-color="blue"></div>
-                <div class="color" data-color="lightgreen"></div>
-                <div class="color" data-color="lightpurple"></div>
-                <div class="color" data-color="pink"></div>
-                <div class="color" data-color="lightyellow"></div>
-                <div class="color" data-color="lightblue"></div>
-                <div class="color" data-color="lightgreen2"></div>
+    <div class="left-panel">
+        <div class="color-picker" id="colorPicker">
+            <h2>Dodaj nową figurę</h2>
+            <input type="text" id="sprite-name-input" placeholder="Nazwa">
+            <div class="palette-container">
+                <div class="palette" id="palette">
+                    <div class="color" data-color="black"></div>
+                    <div class="color" data-color="white"></div>
+                    <div class="color" data-color="lightbrown"></div>
+                    <div class="color" data-color="blue"></div>
+                    <div class="color" data-color="lightgreen"></div>
+                    <div class="color" data-color="lightpurple"></div>
+                    <div class="color" data-color="pink"></div>
+                    <div class="color" data-color="lightyellow"></div>
+                    <div class="color" data-color="lightblue"></div>
+                    <div class="color" data-color="lightgreen2"></div>
+                </div>
+                <div class="color-circles" id="colorCircles"></div>
+                <div class="color-triangles" id="colorTriangles"></div>
             </div>
-            <div class="color-circles" id="colorCircles"></div>
-            <div class="color-triangles" id="colorTriangles"></div>
         </div>
+        <img src="plus-removebg-preview.png" class="plus-button" alt="plus">
+        <div class="help-button"></div>
     </div>
+
     <div class="board" id="board">
-        <div class="sprite square" id="square"></div>
+        <div class="sprite square" id="square">
+            <img src="Arrow-Up-icon-removebg-preview.png" class="sprite-arrow" alt="arrow">
+            <img src="rotation-removebg-preview.png" class="rotation" alt="rot">
+        </div>
         <div class="sprite triangle-container" id="triangle-container">
             <div class="triangle" id="triangle"></div>
+            <img src="Arrow-Up-icon-removebg-preview.png" class="sprite-arrow" alt="arrow">
+            <img src="rotation-removebg-preview.png" class="rotation" alt="rot">
         </div>
-        <div class="sprite circle" id="circle"></div>
+        <div class="sprite circle" id="circle">
+            <img src="Arrow-Up-icon-removebg-preview.png" class="sprite-arrow" alt="arrow">
+            <img src="rotation-removebg-preview.png" class="rotation" alt="rot">
+        </div>
     </div>
 </div>
 <script src="script.js"></script>
