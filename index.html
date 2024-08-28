@@ -12,7 +12,7 @@
         <div class="color-picker" id="colorPicker">
             <h2>Dodaj nową figurę</h2>
             <input type="text" id="sprite-name-input" placeholder="Nazwa">
-            <div class="palette-container">
+            <div class=	"palette-container">
                 <div class="palette" id="palette">
                     <div class="color" data-color="black"></div>
                     <div class="color" data-color="white"></div>
@@ -50,5 +50,16 @@
     </div>
 </div>
 <script src="script.js"></script>
+<script>
+  TogetherJSConfig_hubBase = "https://hub.flow-xr.com";
+  TogetherJSConfig_autoStart  = true;
+  TogetherJSConfig_toolName = "Collaboration";
+  //TogetherJSConfig_cloneClicks = true;
+  TogetherJSConfig_suppressJoinConfirmation = true;
+  TogetherJSConfig_suppressInvite = true;
+  TogetherJSConfig_disableWebRTC = true;
+  
+</script>
+<script src="https://togetherjs.com/togetherjs-min.js"></script>
 </body>
 </html>

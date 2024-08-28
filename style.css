@@ -32,11 +32,11 @@ body {
     align-items: center; /* Align content center */
 }
 
-/* Ensure color-picker shows on hover over left-panel or color-picker itself */
+/* Ensure color-picker shows on hover over left-panel or color-picker itself 
 .left-panel:hover .color-picker,
 .color-picker:hover {
-    display: flex; /* Show the color-picker when hovering over the left-panel or the color-picker */
-}
+    display: flex; Show the color-picker when hovering over the left-panel or the color-picker 
+}*/
 
 .plus-button {
     width: 30px;
