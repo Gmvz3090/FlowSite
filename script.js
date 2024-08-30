@@ -97,9 +97,34 @@ document.addEventListener("DOMContentLoaded", function() {
     createColorTriangles();
 });
 
-// Function to spawn a shape at the cursor position
-function spawnShapeAtCursor(shapeType, color, spriteName, spriteId) {
+// Initialize a shared variable for the sprite counter
+let sharedSpriteIdCounter = 0;
+
+// Function to increment the shared counter and get the new value
+function getAndIncrementSharedCounter() {
+    // Increment the counter
+    sharedSpriteIdCounter += 1;
+
+    // Broadcast the new counter value to all users
+    TogetherJS.send({
+        type: 'update-counter',
+        counterValue: sharedSpriteIdCounter
+    });
+
+    return sharedSpriteIdCounter;
+}
+
+// Function to sync the shared counter when receiving an update from another user
+TogetherJS.hub.on('update-counter', function(msg) {
+    if (!msg.sameUrl) return;
+    sharedSpriteIdCounter = msg.counterValue;
+});
+
+// Updated spawnShapeAtCursor function
+function spawnShapeAtCursor(shapeType, color, spriteName, spriteId = null) {
     let newSprite;
+
+        spriteId = `sprite-${getAndIncrementSharedCounter()}`;
 
     // Create shape based on type
     if (shapeType === 'circle') {
@@ -129,7 +154,9 @@ function spawnShapeAtCursor(shapeType, color, spriteName, spriteId) {
     }
 
     newSprite.id = spriteId; // Assign unique ID to the new shape
-    // Handle overlay and controls
+
+    // Handle overlay and controls (same as before)
+
     const overlay = document.createElement('div');
     overlay.className = 'sprite-overlay';
 
@@ -213,7 +240,13 @@ function spawnShapeAtCursor(shapeType, color, spriteName, spriteId) {
     });
 }
 
-// Function to make sprites draggable and rotatable
+// TogetherJS event listener
+TogetherJS.hub.on('spawn-shape', function(msg) {
+    if (!msg.sameUrl) return;
+    // Use the provided ID to spawn the shape so it stays consistent across players
+    spawnShapeAtCursor(msg.shapeType, msg.color, msg.spriteName, msg.spriteId);
+});
+
 function makeSpriteDraggable(sprite) {
     let isDragging = false;
     let isRotating = false;
