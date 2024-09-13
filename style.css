@@ -77,10 +77,10 @@ body {
     background: url('board.png') no-repeat center center;
     background-size: cover;
     position: relative;
-    width: 60vw;
-    height: 60vw;
-    max-width: 60vh;
-    max-height: 60vh;
+    width: 90vw;
+    height: 90vw;
+    max-width: 90vh;
+    max-height: 90vh;
     overflow: hidden;
     z-index: 1; /* Lower z-index so sprites appear on top */
 }

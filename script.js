@@ -64,12 +64,12 @@ window.addEventListener('resize', resizeElements);
 resizeElements();
 
 function resizeBoard() {
-    const size = window.innerHeight * 1.0;
+    const size = window.innerHeight * 0.9;
     board.style.width = `${size}px`;
     board.style.height = `${size}px`;
     resizeSprites();
     console.log("Resized the board and sprites.");
-	
+
 }
 
 window.addEventListener('resize', resizeBoard);
