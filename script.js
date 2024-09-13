@@ -47,7 +47,7 @@ TogetherJS.hub.on('spawn-shape', function (msg) {
         console.warn(`Sprite with ID ${msg.spriteId} already exists.`);
     }
 });
-
+resizeBoard();
 function resizeElements() {
     const boardSize = board.offsetWidth;
     const elementSize = boardSize / 25;
@@ -64,16 +64,16 @@ window.addEventListener('resize', resizeElements);
 resizeElements();
 
 function resizeBoard() {
-    const size = window.innerHeight * 0.6;
+    const size = window.innerHeight * 1.0;
     board.style.width = `${size}px`;
     board.style.height = `${size}px`;
     resizeSprites();
     console.log("Resized the board and sprites.");
+	
 }
 
 window.addEventListener('resize', resizeBoard);
 window.addEventListener('load', resizeBoard);
-
 function togglePaletteVisibility() {
     if (paletteContainer.style.display === 'none' || paletteContainer.style.display === '') {
         paletteContainer.style.display = 'flex'; // Show the palette
@@ -194,7 +194,7 @@ TogetherJS.hub.on('remove-shape', function (msg) {
 
 function resizeSprites() {
     const boardRect = board.getBoundingClientRect();
-    const spriteSize = boardRect.width / 15;
+    const spriteSize = boardRect.width / 12;
 
     document.querySelectorAll('.sprite').forEach(sprite => {
         sprite.style.width = `${spriteSize}px`;
@@ -202,7 +202,7 @@ function resizeSprites() {
 
         ['trashcan', 'rotation'].forEach(controlClass => {
             const control = sprite.querySelector(`.${controlClass}`);
-            const buttonSize = spriteSize / 3;
+            const buttonSize = spriteSize / 2.5;
             control.style.width = `${buttonSize}px`;
             control.style.height = `${buttonSize}px`;
         });
