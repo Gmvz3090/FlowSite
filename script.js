@@ -1,312 +1,253 @@
-// Restore the constant elements
 const board = document.getElementById('board');
 const colorCirclesContainer = document.getElementById('colorCircles');
 const colorTrianglesContainer = document.getElementById('colorTriangles');
-const palette = document.getElementById('palette');
+const colorSquaresContainer = document.getElementById('colorSquares');
 const spriteNameInput = document.getElementById('sprite-name-input');
-let shapeCounter = 0; // Initialize shapeCounter
+const plusButton = document.querySelector('.plus-button');
+const paletteContainer = document.querySelector('.color-picker');
+let shapeCounter = 0;
+let uniqueId;
+// Event listeners for spawning shapes
+const shapeContainers = [
+    { container: colorCirclesContainer, shapeClass: 'ko_shape_bz', type: 'circle' },
+    { container: colorTrianglesContainer, shapeClass: 't_shape_bz', type: 'triangle' },
+    { container: colorSquaresContainer, shapeClass: 'kw_shape_bz', type: 'square' },
+];
 
-document.addEventListener("DOMContentLoaded", function() {
-    const leftPanel = document.querySelector('.left-panel');
-    const colorPicker = document.querySelector('.color-picker');
-    let addingShape = false; // Flag to prevent multiple additions
-
-    // Show/Hide color-picker on left-panel click
-    leftPanel.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent click event from bubbling up
-        const isVisible = colorPicker.style.display === 'flex';
-        colorPicker.style.display = isVisible ? 'none' : 'flex';
-
-        // Emit event via TogetherJS
-        TogetherJS.send({
-            type: 'toggle-color-picker',
-            isVisible: !isVisible
-        });
-    });
-
-    // Prevent clicks inside the color picker from closing it
-    colorPicker.addEventListener('click', function(event) {
-        event.stopPropagation(); // Prevent click event from bubbling up
-    });
-
-    document.addEventListener('click', function(event) {
-        const isClickInsidePanel = leftPanel.contains(event.target);
-        const isClickInsideColorPicker = colorPicker.contains(event.target);
-        const isClickOnShapeElement = event.target.classList.contains('color-circle') || 
-                                      event.target.classList.contains('color-triangle') || 
-                                      event.target.classList.contains('color-triangle-border') || 
-                                      event.target.classList.contains('color');
-
-        if (!isClickInsidePanel && !isClickInsideColorPicker && !isClickOnShapeElement) {
-            colorPicker.style.display = 'none';
-
-            // Emit event via TogetherJS
+shapeContainers.forEach(({ container, shapeClass, type }) => {
+    container.addEventListener('click', (e) => {
+        if (e.target.tagName === 'IMG') {
+            const imageSrc = e.target.getAttribute('src');
+            uniqueId = `sprite-${shapeCounter++}`; // Generate unique ID for each sprite
+			shapeCounter++;
+            console.log(`Spawning ${type} on board with image: ${imageSrc}`);
+            spawnShapeOnBoard(type, imageSrc, uniqueId);
+            // Emit event via TogetherJS to synchronize spawning across all users
             TogetherJS.send({
-                type: 'toggle-color-picker',
-                isVisible: false
+                type: 'spawn-shape',
+                shapeType: type,
+                imageSrc: imageSrc,
+                spriteId: uniqueId
             });
         }
     });
-
-    // Listen for TogetherJS toggle-color-picker event
-    TogetherJS.hub.on('toggle-color-picker', function (msg) {
-        if (!msg.sameUrl) return;
-
-        const isVisible = colorPicker.style.display === 'flex';
-        if (msg.isVisible !== isVisible) {
-            colorPicker.style.display = msg.isVisible ? 'flex' : 'none';
-        }
-    });
-
-    // Add event listeners for shape creation
-    function handleShapeAddition(e, shapeType) {
-        if (addingShape) return; // Block multiple additions
-        addingShape = true;
-
-        const color = getComputedStyle(e.target).backgroundColor;
-        const spriteName = spriteNameInput.value.trim(); // Safeguard against undefined spriteName
-
-        const uniqueId = `sprite-${shapeCounter++}`; // Generate a unique ID
-        spawnShapeAtCursor(shapeType, color, spriteName, uniqueId);
-
-        // Automatically close the side panel after adding the shape
-        colorPicker.style.display = 'none';
-        TogetherJS.send({
-            type: 'toggle-color-picker',
-            isVisible: false
-        });
-        addingShape = false;
-    }
-
-    colorCirclesContainer.addEventListener('click', (e) => handleShapeAddition(e, 'circle'));
-    colorTrianglesContainer.addEventListener('click', (e) => handleShapeAddition(e, 'triangle'));
-    palette.addEventListener('click', (e) => handleShapeAddition(e, 'square'));
-
-    // Listen for TogetherJS spawn-shape event
-    TogetherJS.hub.on('spawn-shape', function (msg) {
-        if (!msg.sameUrl) return;
-
-        // Check if the shape already exists before creating it
-        if (!document.getElementById(msg.spriteId)) {
-            spawnShapeAtCursor(msg.shapeType, msg.color, msg.spriteName, msg.spriteId);
-        }
-    });
-
-    // Create color circles and triangles
-    createColorCircles();
-    createColorTriangles();
 });
 
-// Initialize a shared variable for the sprite counter
-let sharedSpriteIdCounter = 0;
+// Listen for TogetherJS spawn-shape event
+TogetherJS.hub.on('spawn-shape', function (msg) {
+    if (!msg.sameUrl) return;
+	shapeCounter = msg.spriteId+1;
+    // Check if the sprite already exists to avoid duplication
+    if (!document.getElementById(msg.spriteId)) {
+        spawnShapeOnBoard(msg.shapeType, msg.imageSrc, msg.spriteId);
+    } else {
+        console.warn(`Sprite with ID ${msg.spriteId} already exists.`);
+    }
+});
 
-// Function to increment the shared counter and get the new value
-function getAndIncrementSharedCounter() {
-    // Increment the counter
-    sharedSpriteIdCounter += 1;
+function resizeElements() {
+    const boardSize = board.offsetWidth;
+    const elementSize = boardSize / 25;
 
-    // Broadcast the new counter value to all users
-    TogetherJS.send({
-        type: 'update-counter',
-        counterValue: sharedSpriteIdCounter
+    document.querySelectorAll('.color-square img, .color-circle img, .color-triangle img').forEach(element => {
+        element.style.width = `${elementSize}px`;
+        element.style.height = `${elementSize}px`;
     });
 
-    return sharedSpriteIdCounter;
+    console.log("Resized elements based on board size.");
 }
 
-// Function to sync the shared counter when receiving an update from another user
-TogetherJS.hub.on('update-counter', function(msg) {
-    if (!msg.sameUrl) return;
-    sharedSpriteIdCounter = msg.counterValue;
-});
+window.addEventListener('resize', resizeElements);
+resizeElements();
 
-// Updated spawnShapeAtCursor function
-function spawnShapeAtCursor(shapeType, color, spriteName, spriteId = null) {
-    let newSprite;
+function resizeBoard() {
+    const size = window.innerHeight * 0.6;
+    board.style.width = `${size}px`;
+    board.style.height = `${size}px`;
+    resizeSprites();
+    console.log("Resized the board and sprites.");
+}
 
-        spriteId = `sprite-${getAndIncrementSharedCounter()}`;
+window.addEventListener('resize', resizeBoard);
+window.addEventListener('load', resizeBoard);
 
-    // Create shape based on type
-    if (shapeType === 'circle') {
-        newSprite = document.createElement('div');
-        newSprite.className = 'sprite circle';
-        newSprite.style.backgroundColor = color;
-        newSprite.style.border = '2px solid #333';
-        newSprite.style.borderRadius = '50%';
-        newSprite.style.width = '50px';
-        newSprite.style.height = '50px';
-    } else if (shapeType === 'triangle') {
-        newSprite = document.createElement('div');
-        newSprite.className = 'sprite triangle-container';
-        const innerTriangle = document.createElement('div');
-        innerTriangle.className = 'triangle';
-        innerTriangle.style.borderBottomColor = color;
-        innerTriangle.style.display = 'block';
-        newSprite.appendChild(innerTriangle);
-    } else if (shapeType === 'square') {
-        newSprite = document.createElement('div');
-        newSprite.className = 'sprite square';
-        newSprite.style.backgroundColor = color;
-        newSprite.style.border = '2px solid #333';
-        newSprite.style.borderRadius = '5px';
-        newSprite.style.width = '50px';
-        newSprite.style.height = '50px';
+function togglePaletteVisibility() {
+    if (paletteContainer.style.display === 'none' || paletteContainer.style.display === '') {
+        paletteContainer.style.display = 'flex'; // Show the palette
+        plusButton.querySelector('img').src = 'assets/x-button.svg'; // Change to x-button.svg
+    } else {
+        paletteContainer.style.display = 'none'; // Hide the palette
+        plusButton.querySelector('img').src = 'assets/plus-button.svg'; // Change back to plus-button.svg
+    }
+}
+
+// Add an event listener to the plus button to toggle the palette visibility
+plusButton.addEventListener('click', togglePaletteVisibility);
+
+// Initially hide the palette container
+paletteContainer.style.display = 'none';
+
+function spawnShapeOnBoard(shapeType, imageSrc, spriteId) {
+    const spriteName = spriteNameInput.value.trim();
+    const spriteSize = board.getBoundingClientRect().width / 15;
+    const sprite = createShapeElement(shapeType, imageSrc, spriteSize, spriteId);
+
+    if (spriteName) {
+        addNameLabel(sprite, spriteName);
+        spriteNameInput.value = '';
     }
 
-    newSprite.id = spriteId; // Assign unique ID to the new shape
+    sprite.style.display = 'flex'; // Ensure the sprite is displayed as a flex element
+    board.appendChild(sprite); // Append sprite to the board
+    makeSpriteDraggable(sprite);
+    resizeSprites();
 
-    // Handle overlay and controls (same as before)
+    console.log(`Spawned a ${shapeType} on the board.`);
+}
 
+function createShapeElement(shapeType, imageSrc, size, spriteId) {
+    const sprite = document.createElement('div');
+    sprite.id = spriteId; // Set the unique sprite ID
+    sprite.className = `sprite ${shapeType}`;
+    sprite.style.width = `${size}px`;
+    sprite.style.height = `${size}px`;
+    sprite.style.position = 'absolute';
+    sprite.style.display = 'flex'; // Ensure it displays
+    sprite.style.backgroundColor = 'transparent'; // Ensure no background color
+
+    const img = document.createElement('img');
+    img.src = imageSrc;
+    img.style.width = '100%';
+    img.style.height = '100%';
+    sprite.appendChild(img);
+
+    const { left, width, top, height } = board.getBoundingClientRect();
+    sprite.style.left = `${width / 2 - size / 2}px`; // Center within the board
+    sprite.style.top = `${height / 2 - size / 2}px`; // Center within the board
+
+    createSpriteControls(sprite, size);
+    console.log(`Created a ${shapeType} element with image: ${imageSrc} at position (${sprite.style.left}, ${sprite.style.top}).`);
+
+    return sprite;
+}
+
+function addNameLabel(sprite, name) {
+    const nameLabel = document.createElement('div');
+    nameLabel.className = 'sprite-name';
+    nameLabel.innerText = name;
+    sprite.appendChild(nameLabel);
+    console.log(`Added name label: ${name}`);
+}
+
+function createSpriteControls(sprite, size) {
     const overlay = document.createElement('div');
     overlay.className = 'sprite-overlay';
 
-    const trashcan = document.createElement('div');
-    trashcan.className = 'trashcan';
+    const trashcan = createControl('trashcan', size, () => {
+        board.removeChild(sprite);
+        console.log("Sprite removed from board.");
 
-    const rotation = document.createElement('div');
-    rotation.className = 'rotation';
-
-    newSprite.appendChild(overlay);
-    newSprite.appendChild(trashcan);
-    newSprite.appendChild(rotation);
-
-    if (newSprite.classList.contains('triangle-container')) {
-        trashcan.style.bottom = '-76px';
-        trashcan.style.right = '-48px';
-        rotation.style.bottom = '-76px';
-        rotation.style.left = '-48px';
-    } else {
-        trashcan.style.bottom = '-20px';
-        trashcan.style.right = '-20px';
-        rotation.style.bottom = '-20px';
-        rotation.style.left = '-20px';
-    }
-
-    // Adjust overlay position for triangles
-    if (newSprite.classList.contains('triangle-container')) {
-        overlay.style.top = '-22px';
-        overlay.style.left = '-50px';
-    } else {
-        overlay.style.top = '-22px';
-        overlay.style.left = '-22px';
-    }
-
-    trashcan.addEventListener('click', () => {
-        document.body.removeChild(newSprite);
+        // Emit event via TogetherJS to remove the sprite across all users
         TogetherJS.send({
-            type: 'shape-remove',
-            spriteId: newSprite.id
+            type: 'remove-shape',
+            spriteId: sprite.id
         });
     });
 
-    const arrow = document.createElement('div');
-    arrow.className = 'sprite-arrow';
+    const rotation = createControl('rotation', size);
 
-    // Adjust the position of the arrow for triangles
-    if (newSprite.classList.contains('triangle-container')) {
-        arrow.style.left = '-12px';
-        arrow.style.top = '27px';
-        arrow.style.width = '23px';
-        arrow.style.height = '23px';
-    }
-
-    newSprite.appendChild(arrow);
-    newSprite.style.position = 'absolute';
-
-    // Center sprite on screen
-    newSprite.style.left = `${(window.innerWidth / 2) - 25}px`;
-    newSprite.style.top = `${(window.innerHeight / 2) - 25}px`;
-
-    newSprite.style.display = 'block';
-    document.body.appendChild(newSprite);
-    makeSpriteDraggable(newSprite);
-
-    // Add name label if spriteName is provided
-    if (spriteName) {
-        const nameLabel = document.createElement('div');
-        nameLabel.className = 'sprite-name';
-        nameLabel.innerText = spriteName;
-        newSprite.appendChild(nameLabel);
-        spriteNameInput.value = ''; // Clear the input field
-    }
-
-    // Emit event via TogetherJS with unique ID
-    TogetherJS.send({
-        type: 'spawn-shape',
-        shapeType: shapeType,
-        color: color,
-        spriteName: spriteName,
-        spriteId: spriteId // Send unique ID
-    });
+    sprite.appendChild(overlay);
+    sprite.appendChild(trashcan);
+    sprite.appendChild(rotation);
+    console.log("Added controls to sprite.");
 }
 
-// TogetherJS event listener
-TogetherJS.hub.on('spawn-shape', function(msg) {
+function createControl(className, size, onClick = null) {
+    const control = document.createElement('div');
+    control.className = className;
+    control.style.width = `${size / 3}px`;
+    control.style.height = `${size / 3}px`;
+    control.style.bottom = `-${size / 6}px`;
+    if (className === 'trashcan') control.style.right = `-${size / 6}px`;
+    if (className === 'rotation') control.style.left = `-${size / 6}px`;
+
+    if (onClick) control.addEventListener('click', onClick);
+    console.log(`Created control: ${className}`);
+
+    return control;
+}
+
+// Listen for TogetherJS remove-shape event
+TogetherJS.hub.on('remove-shape', function (msg) {
     if (!msg.sameUrl) return;
-    // Use the provided ID to spawn the shape so it stays consistent across players
-    spawnShapeAtCursor(msg.shapeType, msg.color, msg.spriteName, msg.spriteId);
+
+    const sprite = document.getElementById(msg.spriteId);
+    if (sprite) {
+        board.removeChild(sprite);
+    } else {
+        console.warn(`Sprite with ID ${msg.spriteId} not found.`);
+    }
 });
 
+function resizeSprites() {
+    const boardRect = board.getBoundingClientRect();
+    const spriteSize = boardRect.width / 15;
+
+    document.querySelectorAll('.sprite').forEach(sprite => {
+        sprite.style.width = `${spriteSize}px`;
+        sprite.style.height = `${spriteSize}px`;
+
+        ['trashcan', 'rotation'].forEach(controlClass => {
+            const control = sprite.querySelector(`.${controlClass}`);
+            const buttonSize = spriteSize / 3;
+            control.style.width = `${buttonSize}px`;
+            control.style.height = `${buttonSize}px`;
+        });
+    });
+
+    console.log("Resized all sprites on the board.");
+}
+
 function makeSpriteDraggable(sprite) {
-    let isDragging = false;
-    let isRotating = false;
-    let startX, startY, offsetX, offsetY;
-    let rotationStartY, initialRotationAngle = 0;
+    let isDragging = false,
+        isRotating = false,
+        offsetX, offsetY, rotationStartY, initialRotationAngle = 0;
 
     const trashcan = sprite.querySelector('.trashcan');
-    const overlay = sprite.querySelector('.sprite-overlay');
-    const arrow = sprite.querySelector('.sprite-arrow');
     const rotation = sprite.querySelector('.rotation');
 
-    const handleMouseDown = (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        offsetX = e.clientX - sprite.getBoundingClientRect().left;
-        offsetY = e.clientY - sprite.getBoundingClientRect().top;
+    sprite.addEventListener('mousedown', (e) => {
+        if (e.target === trashcan || e.target === rotation) return;
 
+        isDragging = true;
+        const rect = sprite.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+
+        sprite.style.zIndex = '10000';
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
 
-        // Show trashcan and rotation only when interacting with sprite
-        trashcan.style.display = 'block';
-        rotation.style.display = 'block';
-    };
+        console.log("Started dragging sprite.");
+    });
 
     function onMouseMove(e) {
         if (isRotating) {
-            let deltaY = e.clientY - rotationStartY;
-            let newRotationAngle = initialRotationAngle - deltaY * 1.2; // Adjust sensitivity here
+            const deltaY = e.clientY - rotationStartY;
+            const newRotationAngle = initialRotationAngle - deltaY * 1.2;
             sprite.style.transform = `rotate(${newRotationAngle}deg)`;
-
-            // Emit rotate event
             TogetherJS.send({
-                type: 'rotate',
+                type: 'rotate-shape',
                 spriteId: sprite.id,
                 angle: newRotationAngle
             });
         } else if (isDragging) {
-            // Calculate the new position
-            let newX = e.clientX - offsetX;
-            let newY = e.clientY - offsetY;
-
-            // Prevent dragging outside the window bounds
-            const spriteRect = sprite.getBoundingClientRect();
-            const minX = 0;
-            const minY = 0;
-            const maxX = window.innerWidth - spriteRect.width;
-            const maxY = window.innerHeight - spriteRect.height;
-
-            if (newX < minX) newX = minX;
-            if (newY < minY) newY = minY;
-            if (newX > maxX) newX = maxX;
-            if (newY > maxY) newY = maxY;
-
-            // Update the position of the sprite
+            const boardRect = board.getBoundingClientRect();
+            const newX = e.clientX - boardRect.left - offsetX;
+            const newY = e.clientY - boardRect.top - offsetY;
             sprite.style.left = `${newX}px`;
             sprite.style.top = `${newY}px`;
 
-            // Emit drag move event
             TogetherJS.send({
                 type: 'drag-move',
                 spriteId: sprite.id,
@@ -319,90 +260,35 @@ function makeSpriteDraggable(sprite) {
     function onMouseUp() {
         isDragging = false;
         isRotating = false;
-
-        // Hide the trashcan and rotation after dragging or rotating
-        if (!overlay.matches(':hover') && !arrow.matches(':hover') && !rotation.matches(':hover') && !trashcan.matches(':hover')) {
-            trashcan.style.display = 'none';
-            rotation.style.display = 'none';
-        }
-
+        sprite.style.zIndex = '100';
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
 
-        // Emit drag end event
-        TogetherJS.send({
-            type: 'drag-end',
-            spriteId: sprite.id
-        });
+        console.log("Stopped dragging or rotating sprite.");
     }
 
-    // Event listeners for rotation
     rotation.addEventListener('mousedown', (e) => {
         isRotating = true;
         rotationStartY = e.clientY;
         const currentRotation = sprite.style.transform.match(/rotate\((.*)deg\)/);
         initialRotationAngle = currentRotation ? parseFloat(currentRotation[1]) : 0;
 
-        // Prevent dragging while rotating
         isDragging = false;
-
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
-    });
 
-    sprite.addEventListener('mousedown', handleMouseDown);
+        console.log("Started rotating sprite.");
+    });
 
     // Listen for TogetherJS drag and rotate events
-    TogetherJS.hub.on('drag-start', function (msg) {
-        if (!msg.sameUrl || msg.spriteId !== sprite.id) return;
-        startX = msg.offsetX;
-        startY = msg.offsetY;
-    });
-
     TogetherJS.hub.on('drag-move', function (msg) {
         if (!msg.sameUrl || msg.spriteId !== sprite.id) return;
         sprite.style.left = `${msg.newX}px`;
         sprite.style.top = `${msg.newY}px`;
     });
 
-    TogetherJS.hub.on('rotate', function (msg) {
+    TogetherJS.hub.on('rotate-shape', function (msg) {
         if (!msg.sameUrl || msg.spriteId !== sprite.id) return;
         sprite.style.transform = `rotate(${msg.angle}deg)`;
-    });
-
-    TogetherJS.hub.on('drag-end', function (msg) {
-        if (!msg.sameUrl || msg.spriteId !== sprite.id) return;
-        isDragging = false;
-    });
-
-    TogetherJS.hub.on('shape-remove', function (msg) {
-        if (!msg.sameUrl || msg.spriteId !== sprite.id) return;
-        document.body.removeChild(sprite);
-    });
-}
-
-// Reuse existing functions to create color circles and triangles
-function createColorCircles() {
-    const colorOptions = document.querySelectorAll('.color');
-    colorOptions.forEach(colorOption => {
-        const color = getComputedStyle(colorOption).backgroundColor;
-        const circle = document.createElement('div');
-        circle.className = 'color-circle';
-        circle.style.backgroundColor = color;
-        colorCirclesContainer.appendChild(circle);
-    });
-}
-
-function createColorTriangles() {
-    const colorOptions = document.querySelectorAll('.color');
-    colorOptions.forEach(colorOption => {
-        const color = getComputedStyle(colorOption).backgroundColor;
-        const borderTriangle = document.createElement('div');
-        borderTriangle.className = 'color-triangle-border';
-        const colorTriangle = document.createElement('div');
-        colorTriangle.className = 'color-triangle';
-        colorTriangle.style.borderBottomColor = color;
-        borderTriangle.appendChild(colorTriangle);
-        colorTrianglesContainer.appendChild(borderTriangle);
     });
 }

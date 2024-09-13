@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0adc8db2-02a5-49c1-bb95-eeed71072d50" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2keuJvSS1kmAh9FgAeCK5Ad9s9B" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0adc8db2-02a5-49c1-bb95-eeed71072d50" name="Changes" comment="" />
+      <created>1723656294904</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1723656294904</updated>
+      <workItem from="1723656296331" duration="291000" />
+      <workItem from="1723656652476" duration="6632000" />
+      <workItem from="1723727263772" duration="8542000" />
+      <workItem from="1723740680387" duration="15544000" />
+      <workItem from="1723799468539" duration="27143000" />
+      <workItem from="1723886976142" duration="7405000" />
+      <workItem from="1723901367310" duration="1630000" />
+      <workItem from="1723909637332" duration="2129000" />
+      <workItem from="1724147463263" duration="18150000" />
+      <workItem from="1724338005646" duration="5414000" />
+      <workItem from="1724597084927" duration="3364000" />
+      <workItem from="1724670071390" duration="9062000" />
+      <workItem from="1724936869753" duration="3889000" />
+      <workItem from="1725021655482" duration="6864000" />
+      <workItem from="1725378332676" duration="2492000" />
+      <workItem from="1725556039639" duration="2583000" />
+      <workItem from="1725801218316" duration="1547000" />
+      <workItem from="1725903531527" duration="2882000" />
+      <workItem from="1725982759109" duration="3335000" />
+      <workItem from="1726066684022" duration="17453000" />
+      <workItem from="1726116526150" duration="404000" />
+      <workItem from="1726167821081" duration="1352000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

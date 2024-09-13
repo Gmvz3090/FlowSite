@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     margin: 0;
     padding: 0;
@@ -8,11 +9,21 @@ body {
     background-color: white;
 }
 
+.project-logo {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 10px;
+    top: 10px;
+    display: block;
+}
+
 .layout {
     display: flex;
     align-items: flex-start;
 }
 
+/* Left Panel */
 .left-panel {
     display: flex;
     flex-direction: column;
@@ -22,230 +33,170 @@ body {
 }
 
 .color-picker {
-    width: 162px; /* Width of the color-picker */
-    padding: 20px; /* Add padding for spacing */
+    width: 162px;
+    padding: 20px;
+    right: -200px;
     border: 1px solid #333;
-    position: absolute;
-    left: -220px;
-    display: none;
+    display: flex;
     flex-direction: column;
-    align-items: center; /* Align content center */
+    align-items: center;
+    z-index: 1000;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
-/* Ensure color-picker shows on hover over left-panel or color-picker itself 
-.left-panel:hover .color-picker,
-.color-picker:hover {
-    display: flex; Show the color-picker when hovering over the left-panel or the color-picker 
-}*/
 
 .plus-button {
     width: 30px;
     height: 30px;
-    position: absolute;
-    background-color: #333;
-    border-radius: 50%;
-    border: 20px transparent;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0;
     cursor: pointer;
-    margin-right: 30px;
-    margin-top: 660px;
+    overflow: visible;
+    z-index: 1000;
 }
 
+.plus-button svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    pointer-events: auto;
+    z-index: 1000;
+}
+
+/* Board */
 .board {
-    width: 856px;
-    height: 856px;
     background: url('board.png') no-repeat center center;
+    background-size: cover;
     position: relative;
+    width: 60vw;
+    height: 60vw;
+    max-width: 60vh;
+    max-height: 60vh;
+    overflow: hidden;
+    z-index: 1; /* Lower z-index so sprites appear on top */
 }
 
+/* Sprite Styling */
 .sprite {
-    width: 50px;
-    height: 50px;
-    position: relative;
+    position: absolute;
     cursor: grab;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Higher z-index than the board */
+    background-color: transparent;
+    overflow: visible;
 }
 
-.sprite-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: transparent;
-    z-index: 1; /* Ensure it's above the sprite but below the trashcan */
-}
-
-.trashcan {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 20px;
-    height: 20px;
-    background: url('trashcan-icon-removebg-preview.png') no-repeat center center;
-    background-size: contain;
-    cursor: pointer;
-    display: none;
-    border-radius: 50%;
-    border: 2px solid gray;
-    z-index: 100;
-}
-
-/* Ensure trashcan appears when hovering over the overlay */
-.sprite-overlay:hover + .trashcan {
-    display: block; /* Show trashcan on hover */
-}
-
-.sprite-arrow {
-    position: absolute;
-    width: 25px; /* Adjust size as needed */
-    height: 25px; /* Adjust size as needed */
-    top: 12px; /* Adjust based on sprite size */
-    left: 12px;
-    background: url('Arrow-Up-icon-removebg-preview.png') no-repeat center center;
-    background-size: contain;
+.sprite img {
+    width: 100%;
+    height: 100%;
     display: block;
-    z-index: 100;
+    pointer-events: none;
 }
 
-.rotation {
+/* Trashcan and Rotation Icons */
+/* Trashcan and Rotation Icons */
+.sprite .trashcan,
+.sprite .rotation {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    bottom: 0;
-    left: 0;
-    background: url('rotation-removebg-preview.png') no-repeat center center;
-    background-size: contain;
+    bottom: -10px;
     cursor: pointer;
-    display: none;
-    border-radius: 50%;
-    border: 2px solid gray;
-    z-index: 100;
+    display: none; /* Initially hidden */
+    z-index: 100001;
+    width: 30px; /* Size of the control */
+    height: 30px;
+    background-size: contain; /* Ensure the image fits inside the element */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.sprite .trashcan {
+    right: -10px;
+    background-image: url('assets/trashcan.svg'); /* Path to the trashcan icon */
+}
+
+.sprite .rotation {
+    left: -10px;
+    background-image: url('assets/rotation.svg'); /* Path to the rotation icon */
+}
+
+/* Show controls when hovering over the sprite */
+.sprite:hover .trashcan,
+.sprite:hover .rotation {
+    display: block; /* Show icons on hover */
 }
 
 
+/* Show controls when hovering over the sprite */
+.sprite:hover .trashcan,
+.sprite:hover .rotation {
+    display: block; /* Show icons on hover */
+}
+
+/* Sprite Name Styling */
 .sprite-name {
     position: absolute;
+    top: -20px;
     left: 50%;
-    margin-right: 30px;
-    margin-top: -20px;
     transform: translateX(-50%);
     font-size: 14px;
     font-weight: bold;
     text-align: center;
     white-space: nowrap;
-    z-index: 1;
+    z-index: 150;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 
-.square {
-    background-color: #90c29e;
+/* Hidden by default */
+.square, .triangle, .circle {
     display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 5px;
-    border: 2px solid #333;
+    z-index: 999;
 }
 
-.triangle-container {
-    display: none;
-    width: 0;
-    height: 0;
-    border-left: 28px solid transparent;
-    border-right: 28px solid transparent;
-    border-bottom: 56px solid black;
-    position: relative;
-}
-
-.triangle {
-    display: none;
-    width: 0;
-    height: 0;
-    border-left: 25px solid transparent;
-    border-right: 25px solid transparent;
-    border-bottom: 50px solid #e0d679;
-    position: absolute;
-    top: calc(50% + 4px);
-    left: calc(50% - 25px);
-    z-index: 1;
-}
-
-.circle {
-    display: none;
-    background-color: #d44570;
-    border-radius: 50%;
-    top: 10%;
-    left: 80%;
-    border: 2px solid #333;
-}
-
+/* Color Picker and Shapes */
 .palette-container {
     display: flex;
     gap: 20px;
     margin-top: 20px;
+    z-index: 1000;
 }
 
-.palette {
+/* Shape Container */
+.color-circles, .color-triangles, .color-square {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-}
-
-.color {
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    border-radius: 10px;
-    position: relative;
-    background-color: transparent;
-    border: 2px solid #333;
-}
-
-.color-circles, .color-triangles {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.color-circle {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid #333;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.color-triangle-border {
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 40px solid #333;
     cursor: pointer;
     position: relative;
+    background-color: transparent;
+    gap: 10px;
+    z-index: 1000;
 }
 
-.color-triangle {
-    width: 0;
-    height: 0;
-    border-left: 17px solid transparent;
-    border-right: 17px solid transparent;
-    border-bottom: 34px solid transparent;
-    position: absolute;
-    top: calc(50% + 4px);
-    left: calc(50% - 17px);
+/* Individual Shape Styling */
+.color-circles > div,
+.color-triangles > div,
+.color-square > div {
+    display: block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
 }
 
-[data-color="black"] { background-color: #252321; }
-[data-color="white"] { background-color: #f9f9f9; }
-[data-color="lightbrown"] { background-color: #c07d57; }
-[data-color="blue"] { background-color: #71b6b2; }
-[data-color="lightgreen"] { background-color: #90c29e; }
-[data-color="lightpurple"] { background-color: #9d6d9e; }
-[data-color="pink"] { background-color: #d44570; }
-[data-color="lightyellow"] { background-color: #e0d679; }
-[data-color="lightblue"] { background-color: #89cad3; }
-[data-color="lightgreen2"] { background-color: #94cd5b; }
+.color-circles > div img,
+.color-triangles > div img,
+.color-square > div img {
+    width: 100%;
+    height: auto;
+}
