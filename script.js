@@ -5,8 +5,12 @@ const colorSquaresContainer = document.getElementById('colorSquares');
 const spriteNameInput = document.getElementById('sprite-name-input');
 const plusButton = document.querySelector('.plus-button');
 const paletteContainer = document.querySelector('.color-picker');
-let shapeCounter = 0;
-let uniqueId;
+
+// Generate a unique ID for each sprite
+function generateUniqueId() {
+    return `sprite-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+}
+
 // Event listeners for spawning shapes
 const shapeContainers = [
     { container: colorCirclesContainer, shapeClass: 'ko_shape_bz', type: 'circle' },
@@ -18,8 +22,7 @@ shapeContainers.forEach(({ container, shapeClass, type }) => {
     container.addEventListener('click', (e) => {
         if (e.target.tagName === 'IMG') {
             const imageSrc = e.target.getAttribute('src');
-            uniqueId = `sprite-${shapeCounter++}`; // Generate unique ID for each sprite
-			shapeCounter++;
+            const uniqueId = generateUniqueId(); // Generate unique ID for each sprite
             console.log(`Spawning ${type} on board with image: ${imageSrc}`);
             spawnShapeOnBoard(type, imageSrc, uniqueId);
             // Emit event via TogetherJS to synchronize spawning across all users
@@ -36,7 +39,7 @@ shapeContainers.forEach(({ container, shapeClass, type }) => {
 // Listen for TogetherJS spawn-shape event
 TogetherJS.hub.on('spawn-shape', function (msg) {
     if (!msg.sameUrl) return;
-	shapeCounter = msg.spriteId+1;
+
     // Check if the sprite already exists to avoid duplication
     if (!document.getElementById(msg.spriteId)) {
         spawnShapeOnBoard(msg.shapeType, msg.imageSrc, msg.spriteId);
