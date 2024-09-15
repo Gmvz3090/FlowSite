@@ -44,7 +44,7 @@
                 .then(data => {
                     if (data.roomkey) {
                         console.log("Obtained room key : " + data.roomkey);
-                        const url = 'https://www.flow-xr.com/#&togetherjs=' + data.roomkey;
+                        const url = 'https://dev.flow-xr.com/workspace.html/#&togetherjs=' + data.roomkey;
                         window.location.href = url;
                     } else {
                         alert('Failed to get room key.');
