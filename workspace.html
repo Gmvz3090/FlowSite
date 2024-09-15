@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow-Xr</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+    <img src="logo.png" class="project-logo" alt="Project Logo">
+
+    <section class="board" id="board">
+        <article class="sprite square" id="square">
+            <div class="s_shape" data-square="s1"><img src="Elementy 6 kolorow/kwadrat_1.svg" alt="Square 1"></div>
+            <div class="s_shape" data-square="s2"><img src="Elementy 6 kolorow/kwadrat_2.svg" alt="Square 2"></div>
+            <div class="s_shape" data-square="s3"><img src="Elementy 6 kolorow/kwadrat_3.svg" alt="Square 3"></div>
+            <div class="s_shape" data-square="s4"><img src="Elementy 6 kolorow/kwadrat_4.svg" alt="Square 4"></div>
+            <div class="s_shape" data-square="s5"><img src="Elementy 6 kolorow/kwadrat_5.svg" alt="Square 5"></div>
+            <div class="s_shape" data-square="s6"><img src="Elementy 6 kolorow/kwadrat_6.svg" alt="Square 6"></div>
+
+            <img src="assets/rotation.svg" class="rotation" alt="Rotate">
+            <img src="assets/trashcan.svg" class="trashcan" alt="Delete">
+        </article>
+
+        <article class="sprite triangle" id="triangle">
+            <div class="t_shape" data-triangle="t1"><img src="Elementy 6 kolorow/trojkat_1.svg" alt="Triangle 1"></div>
+            <div class="t_shape" data-triangle="t2"><img src="Elementy 6 kolorow/trojkat_2.svg" alt="Triangle 2"></div>
+            <div class="t_shape" data-triangle="t3"><img src="Elementy 6 kolorow/trojkat_3.svg" alt="Triangle 3"></div>
+            <div class="t_shape" data-triangle="t4"><img src="Elementy 6 kolorow/trojkat_4.svg" alt="Triangle 4"></div>
+            <div class="t_shape" data-triangle="t5"><img src="Elementy 6 kolorow/trojkat_5.svg" alt="Triangle 5"></div>
+            <div class="t_shape" data-triangle="t6"><img src="Elementy 6 kolorow/trojkat_6.svg" alt="Triangle 6"></div>
+
+            <img src="assets/rotation.svg" class="rotation" alt="Rotate">
+            <img src="assets/trashcan.svg" class="trashcan" alt="Delete">
+        </article>
+
+        <article class="sprite circle" id="circle">
+            <div class="k_shape" data-circle="c1"><img src="Elementy 6 kolorow/kolo_1.svg" alt="Circle 1"></div>
+            <div class="k_shape" data-circle="c2"><img src="Elementy 6 kolorow/kolo_2.svg" alt="Circle 2"></div>
+            <div class="k_shape" data-circle="c3"><img src="Elementy 6 kolorow/kolo_3.svg" alt="Circle 3"></div>
+            <div class="k_shape" data-circle="c4"><img src="Elementy 6 kolorow/kolo_4.svg" alt="Circle 4"></div>
+            <div class="k_shape" data-circle="c5"><img src="Elementy 6 kolorow/kolo_5.svg" alt="Circle 5"></div>
+            <div class="k_shape" data-circle="c6"><img src="Elementy 6 kolorow/kolo_6.svg" alt="Circle 6"></div>
+
+            <div class="rotation" alt="Rotate"></div>
+            <div class="trashcan" alt="Delete"></div>
+
+        </article>
+    </section>
+
+    <aside class="left-panel">
+        <div class="color-picker" id="colorPicker">
+            <input type="text" id="sprite-name-input" placeholder="Nazwa">
+            <div class="palette-container" id="palette_container">
+                <div class="color-square" id="colorSquares">
+                    <div class="kw_shape_bz" data-square_bz="s1"><img src="Elementy 6 kolorow/kwadrat_1.svg" alt="Square bz 1"></div>
+                    <div class="kw_shape_bz" data-square_bz="s2"><img src="Elementy 6 kolorow/kwadrat_2.svg" alt="Square bz 2"></div>
+                    <div class="kw_shape_bz" data-square_bz="s3"><img src="Elementy 6 kolorow/kwadrat_3.svg" alt="Square bz 3"></div>
+                    <div class="kw_shape_bz" data-square_bz="s4"><img src="Elementy 6 kolorow/kwadrat_4.svg" alt="Square bz 4"></div>
+                    <div class="kw_shape_bz" data-square_bz="s5"><img src="Elementy 6 kolorow/kwadrat_5.svg" alt="Square bz 5"></div>
+                    <div class="kw_shape_bz" data-square_bz="s6"><img src="Elementy 6 kolorow/kwadrat_6.svg" alt="Square bz 6"></div>
+                </div>
+                <div class="color-circles" id="colorCircles">
+                    <div class="ko_shape_bz" data-circle_bz="c1"><img src="Elementy 6 kolorow/kolo_1.svg" alt="Circle bz 1"></div>
+                    <div class="ko_shape_bz" data-circle_bz="c2"><img src="Elementy 6 kolorow/kolo_2.svg" alt="Circle bz 2"></div>
+                    <div class="ko_shape_bz" data-circle_bz="c3"><img src="Elementy 6 kolorow/kolo_3.svg" alt="Circle bz 3"></div>
+                    <div class="ko_shape_bz" data-circle_bz="c4"><img src="Elementy 6 kolorow/kolo_4.svg" alt="Circle bz 4"></div>
+                    <div class="ko_shape_bz" data-circle_bz="c5"><img src="Elementy 6 kolorow/kolo_5.svg" alt="Circle bz 5"></div>
+                    <div class="ko_shape_bz" data-circle_bz="c6"><img src="Elementy 6 kolorow/kolo_6.svg" alt="Circle bz 6"></div>
+                </div>
+                <div class="color-triangles" id="colorTriangles">
+                    <div class="t_shape_bz" data-triangle_bz="t1"><img src="Elementy 6 kolorow/trojkat_1.svg" alt="Triangle bz 1"></div>
+                    <div class="t_shape_bz" data-triangle_bz="t2"><img src="Elementy 6 kolorow/trojkat_2.svg" alt="Triangle bz 2"></div>
+                    <div class="t_shape_bz" data-triangle_bz="t3"><img src="Elementy 6 kolorow/trojkat_3.svg" alt="Triangle bz 3"></div>
+                    <div class="t_shape_bz" data-triangle_bz="t4"><img src="Elementy 6 kolorow/trojkat_4.svg" alt="Triangle bz 4"></div>
+                    <div class="t_shape_bz" data-triangle_bz="t5"><img src="Elementy 6 kolorow/trojkat_5.svg" alt="Triangle bz 5"></div>
+                    <div class="t_shape_bz" data-triangle_bz="t6"><img src="Elementy 6 kolorow/trojkat_6.svg" alt="Triangle bz 6"></div>
+                </div>
+            </div>
+        </div>
+        <button class="plus-button" aria-label="Add new element">
+            <img src="assets/plus-button.svg" alt="Add New" />
+        </button>
+    </aside>
+</div>
+
+<script>
+    TogetherJSConfig_hubBase = "https://hub.flow-xr.com";
+    TogetherJSConfig_autoStart  = true;
+    TogetherJSConfig_toolName = "Collaboration";
+    TogetherJSConfig_suppressJoinConfirmation = true;
+    TogetherJSConfig_suppressInvite = true;
+    TogetherJSConfig_disableWebRTC = true;
+    TogetherJSConfig_dontShowClicks = true;
+</script>
+<script src="https://togetherjs.com/togetherjs.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
