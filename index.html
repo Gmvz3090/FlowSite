@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get a Room</title>
+    <title>Developer Environment Login</title>
     <style>
         body, html {
             height: 100%;
@@ -14,8 +14,20 @@
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
         }
-        .button-container {
+        .login-container {
             text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        input[type="password"] {
+            padding: 10px;
+            font-size: 18px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
         button {
             padding: 15px 30px;
@@ -25,36 +37,91 @@
             color: white;
             border: none;
             border-radius: 5px;
+            width: 100%;
         }
         button:hover {
             background-color: #0056b3;
         }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <div class="button-container">
-        <button id="get-room-btn">Get a Room</button>
+    <div class="login-container">
+        <h2>Enter Password to Access Developer Environment</h2>
+        <input type="password" id="password-input" placeholder="Enter password">
+        <button id="login-btn">Login</button>
+        <div id="error-message" class="error-message"></div>
     </div>
 
     <script>
-        document.getElementById('get-room-btn').addEventListener('click', function() {
-            // Send a GET request to the API
-            fetch('http://flow-xr.com:8080/api/croom')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.roomkey) {
-                        console.log("Obtained room key : " + data.roomkey);
-                        const url = 'https://dev.flow-xr.com/workspace.html/#&togetherjs=' + data.roomkey;
-                        window.location.href = url;
-                    } else {
-                        alert('Failed to get room key.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching the room key:', error);
-                    alert('There was an error, please try again later.');
-                });
+        document.getElementById('login-btn').addEventListener('click', function() {
+            const password = document.getElementById('password-input').value;
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = '';  // Clear any previous error messages
+
+            if (!password) {
+                errorMessage.textContent = 'Please enter a password.';
+                return;
+            }
+
+            // Send a POST request with the password to the API (api.flow-xr.com)
+            const loginUrl = `https://api.flow-xr.com/admin/login/${password}`;
+
+            fetch(loginUrl, {
+                method: 'POST',
+                mode: 'cors', // Enable CORS for cross-origin requests
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Invalid password.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.token) {
+                    // Store the JWT token in localStorage
+                    localStorage.setItem('authToken', data.token);
+                    
+                    // Now attempt to access the developer environment using the token
+                    accessDeveloperEnvironment();
+                } else {
+                    errorMessage.textContent = 'Invalid password. Please try again.';
+                }
+            })
+            .catch(error => {
+                console.error('Error during login:', error);
+                errorMessage.textContent = 'There was an error, please try again later.';
+            });
         });
+
+        // Function to access the protected developer environment page
+        function accessDeveloperEnvironment() {
+            const token = localStorage.getItem('authToken');
+            
+            fetch('https://api.flow-xr.com/devenv', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}` // Send the token in the Authorization header
+                },
+                mode: 'cors' // Enable CORS
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Access denied.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.body.innerHTML = `<h1>${data.message}</h1>`; // Show the protected content
+            })
+            .catch(error => {
+                console.error('Error loading developer environment:', error);
+                document.body.innerHTML = 'Access denied. Please log in.';
+            });
+        }
     </script>
 </body>
 </html>
