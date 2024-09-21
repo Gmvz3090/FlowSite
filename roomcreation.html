@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get a Room</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .button-container {
+            text-align: center;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button id="get-room-btn">Get a Room</button>
+    </div>
+
+    <script>
+	function validtoken() {
+			const token = localStorage('usrToken');
+			if(!token)
+			{
+				window.location.href = 'https://dev.flow-xr.com/';
+				return;
+			}
+			fetch('https://api.flow-xr.com/devenv/FlowSite/index.html', {
+				headers: {'Authorization': `Bearer ${token}`}})
+			.then(response => {
+				if(!response.ok) throw new Error('Invalid token'); return response.json();
+			}).catch(error => {console.error(error);});
+			
+			
+		}
+		window.onLoad = validtoken;
+        document.getElementById('get-room-btn').addEventListener('click', function() {
+            // Send a GET request to the API
+            fetch('http://api.flow-xr.com/croom')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.roomkey) {
+                        console.log("Obtained room key : " + data.roomkey);
+                        const url = 'https://dev.flow-xr.com/devenv/FlowSite/workspace.html/#&togetherjs=' + data.roomkey;
+                        window.location.href = url;
+                    } else {
+                        alert('Failed to get room key.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching the room key:', error);
+                    alert('There was an error, please try again later.');
+                });
+        });
+    </script>
+</body>
+</html>

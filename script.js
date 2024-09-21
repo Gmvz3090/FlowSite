@@ -10,7 +10,22 @@ const paletteContainer = document.querySelector('.color-picker');
 function generateUniqueId() {
     return `sprite-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 }
-
+function validtoken() {
+			const token = localStorage('usrToken');
+			if(!token)
+			{
+				window.location.href = 'https://dev.flow-xr.com/devenv/FlowSite/index.html';
+				return;
+			}
+			fetch('https://api.flow-xr.com/devenv', {
+				headers: {'Authorization': `Bearer ${token}`}})
+			.then(response => {
+				if(!response.ok) throw new Error('Invalid token'); return response.json();
+			}).catch(error => {console.error(error);});
+			
+			
+		}
+		window.onLoad = validtoken;
 // Event listeners for spawning shapes
 const shapeContainers = [
     { container: colorCirclesContainer, shapeClass: 'ko_shape_bz', type: 'circle' },
