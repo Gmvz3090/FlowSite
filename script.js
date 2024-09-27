@@ -10,22 +10,24 @@ const paletteContainer = document.querySelector('.color-picker');
 function generateUniqueId() {
     return `sprite-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
 }
+
 function validtoken() {
-			const token = localStorage('usrToken');
-			if(!token)
-			{
-				window.location.href = 'https://dev.flow-xr.com/devenv/FlowSite/index.html';
-				return;
-			}
-			fetch('https://api.flow-xr.com/devenv', {
-				headers: {'Authorization': `Bearer ${token}`}})
-			.then(response => {
-				if(!response.ok) throw new Error('Invalid token'); return response.json();
-			}).catch(error => {console.error(error);});
-			
-			
-		}
-		window.onLoad = validtoken;
+    const token = localStorage.getItem('usrToken');
+    if (!token) {
+        window.location.href = 'https://dev.flow-xr.com/devenv/FlowSite/index.html';
+        return;
+    }
+    fetch('https://api.flow-xr.com/devenv', {
+        headers: { 'Authorization': `Bearer ${token}` }
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Invalid token');
+            return response.json();
+        })
+        .catch(error => { console.error(error); });
+}
+window.onLoad = validtoken;
+
 // Event listeners for spawning shapes
 const shapeContainers = [
     { container: colorCirclesContainer, shapeClass: 'ko_shape_bz', type: 'circle' },
@@ -63,20 +65,6 @@ TogetherJS.hub.on('spawn-shape', function (msg) {
     }
 });
 resizeBoard();
-function resizeElements() {
-    const boardSize = board.offsetWidth;
-    const elementSize = boardSize / 25;
-
-    document.querySelectorAll('.color-square img, .color-circle img, .color-triangle img').forEach(element => {
-        element.style.width = `${elementSize}px`;
-        element.style.height = `${elementSize}px`;
-    });
-
-    console.log("Resized elements based on board size.");
-}
-
-window.addEventListener('resize', resizeElements);
-resizeElements();
 
 function resizeBoard() {
     const size = window.innerHeight * 0.9;
@@ -84,11 +72,11 @@ function resizeBoard() {
     board.style.height = `${size}px`;
     resizeSprites();
     console.log("Resized the board and sprites.");
-
 }
 
 window.addEventListener('resize', resizeBoard);
 window.addEventListener('load', resizeBoard);
+
 function togglePaletteVisibility() {
     if (paletteContainer.style.display === 'none' || paletteContainer.style.display === '') {
         paletteContainer.style.display = 'flex'; // Show the palette
@@ -143,6 +131,7 @@ function createShapeElement(shapeType, imageSrc, size, spriteId) {
     sprite.style.left = `${width / 2 - size / 2}px`; // Center within the board
     sprite.style.top = `${height / 2 - size / 2}px`; // Center within the board
 
+    sprite.proportion = 1; // Set initial proportion to 1
     createSpriteControls(sprite, size);
     console.log(`Created a ${shapeType} element with image: ${imageSrc} at position (${sprite.style.left}, ${sprite.style.top}).`);
 
@@ -172,11 +161,14 @@ function createSpriteControls(sprite, size) {
         });
     });
 
+    const resize = createControl('size', size);
+
     const rotation = createControl('rotation', size);
 
     sprite.appendChild(overlay);
     sprite.appendChild(trashcan);
     sprite.appendChild(rotation);
+    sprite.appendChild(resize);
     console.log("Added controls to sprite.");
 }
 
@@ -188,6 +180,7 @@ function createControl(className, size, onClick = null) {
     control.style.bottom = `-${size / 6}px`;
     if (className === 'trashcan') control.style.right = `-${size / 6}px`;
     if (className === 'rotation') control.style.left = `-${size / 6}px`;
+    if (className === 'size') control.style.right = `-${size / 6}px`;
 
     if (onClick) control.addEventListener('click', onClick);
     console.log(`Created control: ${className}`);
@@ -207,35 +200,43 @@ TogetherJS.hub.on('remove-shape', function (msg) {
     }
 });
 
+// Adjust sprite size using proportion
 function resizeSprites() {
     const boardRect = board.getBoundingClientRect();
-    const spriteSize = boardRect.width / 12;
+    const baseSpriteSize = boardRect.width / 12;
 
     document.querySelectorAll('.sprite').forEach(sprite => {
-        sprite.style.width = `${spriteSize}px`;
-        sprite.style.height = `${spriteSize}px`;
+        const newWidth = baseSpriteSize * sprite.proportion; // Apply proportion to base size
+        const newHeight = baseSpriteSize * sprite.proportion; // Apply proportion to base size
 
-        ['trashcan', 'rotation'].forEach(controlClass => {
+        sprite.style.width = `${newWidth}px`;
+        sprite.style.height = `${newHeight}px`;
+
+        // Resize controls (trashcan, rotation, size) accordingly
+        ['trashcan', 'rotation', 'size'].forEach(controlClass => {
             const control = sprite.querySelector(`.${controlClass}`);
-            const buttonSize = spriteSize / 2.5;
-            control.style.width = `${buttonSize}px`;
-            control.style.height = `${buttonSize}px`;
+            const controlSize = newWidth / 3;
+            control.style.width = `${controlSize}px`;
+            control.style.height = `${controlSize}px`;
         });
     });
 
-    console.log("Resized all sprites on the board.");
+    console.log("Resized all sprites on the board with proportion.");
 }
 
 function makeSpriteDraggable(sprite) {
     let isDragging = false,
         isRotating = false,
-        offsetX, offsetY, rotationStartY, initialRotationAngle = 0;
+        isResizing = false,
+        offsetX, offsetY, rotationStartY, initialRotationAngle = 0,
+        initialHeight, initialWidth, startY;
 
     const trashcan = sprite.querySelector('.trashcan');
     const rotation = sprite.querySelector('.rotation');
+    const size = sprite.querySelector('.size');
 
     sprite.addEventListener('mousedown', (e) => {
-        if (e.target === trashcan || e.target === rotation) return;
+        if (e.target === trashcan || e.target === rotation || e.target === size) return;
 
         isDragging = true;
         const rect = sprite.getBoundingClientRect();
@@ -247,6 +248,20 @@ function makeSpriteDraggable(sprite) {
         document.addEventListener('mouseup', onMouseUp);
 
         console.log("Started dragging sprite.");
+    });
+
+    size.addEventListener('mousedown', (e) => {
+        // Start resizing when the size control is clicked
+        isResizing = true;
+        startY = e.clientY;
+        initialWidth = sprite.offsetWidth;
+        initialHeight = sprite.offsetHeight;
+        sprite.style.zIndex = '10000';
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+
+        console.log("Started resizing sprite.");
     });
 
     function onMouseMove(e) {
@@ -272,17 +287,25 @@ function makeSpriteDraggable(sprite) {
                 newX,
                 newY
             });
+        } else if (isResizing) {
+            const deltaY = startY - e.clientY;
+            const scaleFactor = deltaY / 200; // Adjust scaling sensitivity
+            sprite.proportion += scaleFactor; // Update the proportion value
+            sprite.proportion = Math.max(0.2, sprite.proportion); // Prevent proportion from going too low
+            resizeSprites(); // Now the proportion will be applied here
+            startY = e.clientY; // Reset startY to allow smooth resizing
         }
     }
 
     function onMouseUp() {
         isDragging = false;
         isRotating = false;
+        isResizing = false;
         sprite.style.zIndex = '100';
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
 
-        console.log("Stopped dragging or rotating sprite.");
+        console.log(`Stopped dragging or resizing sprite. Final proportion: ${sprite.proportion}`);
     }
 
     rotation.addEventListener('mousedown', (e) => {
@@ -309,4 +332,24 @@ function makeSpriteDraggable(sprite) {
         if (!msg.sameUrl || msg.spriteId !== sprite.id) return;
         sprite.style.transform = `rotate(${msg.angle}deg)`;
     });
+}
+
+function resizeElement(sprite, initialWidth, initialHeight, proportion) {
+    // Set the new dimensions while keeping the aspect ratio constant
+    const newWidth = initialWidth * proportion;
+    const newHeight = initialHeight * proportion;
+
+    if (newWidth > 20 && newHeight > 20) { // Prevent it from getting too small
+        sprite.style.width = `${newWidth}px`;
+        sprite.style.height = `${newHeight}px`;
+
+        // Resize controls (trashcan, rotation, size) accordingly
+        sprite.querySelectorAll('.trashcan, .rotation, .size').forEach(control => {
+            const controlSize = newWidth / 3;
+            control.style.width = `${controlSize}px`;
+            control.style.height = `${controlSize}px`;
+        });
+
+        console.log(`Resized sprite to width: ${newWidth}px, height: ${newHeight}px with proportion: ${proportion}`);
+    }
 }

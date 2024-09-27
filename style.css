@@ -120,6 +120,19 @@ body {
     background-position: center;
 }
 
+.sprite .size {
+    position: absolute;
+    top: -10px;
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    z-index: 100001;
+    width: 30px; /* Size of the control */
+    height: 30px;
+    background-size: contain; /* Ensure the image fits inside the element */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .sprite .trashcan {
     right: -10px;
     background-image: url('assets/trashcan.svg'); /* Path to the trashcan icon */
@@ -130,16 +143,15 @@ body {
     background-image: url('assets/rotation.svg'); /* Path to the rotation icon */
 }
 
-/* Show controls when hovering over the sprite */
-.sprite:hover .trashcan,
-.sprite:hover .rotation {
-    display: block; /* Show icons on hover */
+.sprite .size {
+    right: -10px;
+    background-image: url('assets/size.svg');
 }
 
-
 /* Show controls when hovering over the sprite */
 .sprite:hover .trashcan,
-.sprite:hover .rotation {
+.sprite:hover .rotation,
+.sprite:hover .size {
     display: block; /* Show icons on hover */
 }
 
