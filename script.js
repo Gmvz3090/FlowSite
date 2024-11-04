@@ -4,6 +4,7 @@ const colorTrianglesContainer = document.getElementById('colorTriangles');
 const colorSquaresContainer = document.getElementById('colorSquares');
 const spriteNameInput = document.getElementById('sprite-name-input');
 const plusButton = document.querySelector('.plus-button');
+const logo = document.querySelector('.project-logo');
 const paletteContainer = document.querySelector('.color-picker');
 
 // Generate a unique ID for each sprite
@@ -67,9 +68,11 @@ TogetherJS.hub.on('spawn-shape', function (msg) {
 resizeBoard();
 
 function resizeBoard() {
-    const size = window.innerHeight * 0.9;
-    board.style.width = `${size}px`;
-    board.style.height = `${size}px`;
+    const height = window.innerHeight * 0.9;
+    const width = window.innerHeight * 1.5;
+
+    board.style.width = `${width}px`;
+    board.style.height = `${height}px`;
     resizeSprites();
     console.log("Resized the board and sprites.");
 }
@@ -80,10 +83,11 @@ window.addEventListener('load', resizeBoard);
 function togglePaletteVisibility() {
     if (paletteContainer.style.display === 'none' || paletteContainer.style.display === '') {
         paletteContainer.style.display = 'flex'; // Show the palette
-        plusButton.querySelector('img').src = 'assets/x-button.svg'; // Change to x-button.svg
-    } else {
+        plusButton.src = 'assets/x-button.svg'; // Change to x-button.svg
+    }
+    else {
         paletteContainer.style.display = 'none'; // Hide the palette
-        plusButton.querySelector('img').src = 'assets/plus-button.svg'; // Change back to plus-button.svg
+        plusButton.src = 'assets/plus-button.svg'; // Change back to plus-button.svg
     }
 }
 
@@ -94,6 +98,9 @@ plusButton.addEventListener('click', togglePaletteVisibility);
 paletteContainer.style.display = 'none';
 
 function spawnShapeOnBoard(shapeType, imageSrc, spriteId) {
+    paletteContainer.style.display = 'none';
+    plusButton.src = 'assets/plus-button.svg';
+
     const spriteName = spriteNameInput.value.trim();
     const spriteSize = board.getBoundingClientRect().width / 15;
     const sprite = createShapeElement(shapeType, imageSrc, spriteSize, spriteId);
@@ -203,7 +210,17 @@ TogetherJS.hub.on('remove-shape', function (msg) {
 // Adjust sprite size using proportion
 function resizeSprites() {
     const boardRect = board.getBoundingClientRect();
-    const baseSpriteSize = boardRect.width / 12;
+    const baseSpriteSize = boardRect.height / 12;
+    const logoSize = boardRect.height / 5;
+    const plusButtonSize = boardRect.height / 10;
+
+    plusButton.style.width = `${plusButtonSize}px`;
+    plusButton.style.height = `${plusButtonSize}px`;
+
+    logo.style.width = `${logoSize}px`;
+    logo.style.height = `${logoSize / 2.5}px`;
+    logo.style.left = '10px';
+    logo.style.top = '10px'
 
     document.querySelectorAll('.sprite').forEach(sprite => {
         const newWidth = baseSpriteSize * sprite.proportion; // Apply proportion to base size

@@ -18,6 +18,9 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -73,6 +76,9 @@
       <workItem from="1726066684022" duration="17453000" />
       <workItem from="1726116526150" duration="404000" />
       <workItem from="1726167821081" duration="1352000" />
+      <workItem from="1729620254104" duration="164000" />
+      <workItem from="1729934183240" duration="14000" />
+      <workItem from="1730744542416" duration="318000" />
     </task>
     <servers />
   </component>

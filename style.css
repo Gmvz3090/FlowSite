@@ -10,12 +10,11 @@ body {
 }
 
 .project-logo {
-    position: absolute;
-    width: 100px;
-    height: 50px;
+    position: fixed;
     left: 10px;
     top: 10px;
     display: block;
+    background-size: cover;
 }
 
 .layout {
@@ -23,66 +22,50 @@ body {
     align-items: flex-start;
 }
 
-/* Left Panel */
+/* Left Panel (Color Picker) */
 .left-panel {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 100px;
-    position: relative;
+    position: fixed;
+    bottom: 15px; /* Keep at the bottom */
+    right: 110px;  /* Positioned 15px to the left of the plus button (plus button is 30px wide) */
+    z-index: 1000; /* Ensure it stays above other elements */
 }
 
 .color-picker {
     width: 162px;
     padding: 20px;
-    right: -200px;
     border: 1px solid #333;
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 1000;
-    position: absolute;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Plus Button */
 .plus-button {
-    width: 30px;
-    height: 30px;
     position: fixed;
-    bottom: 10px;
-    right: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    padding: 0;
+    bottom: 10px;  /* Keep at the bottom */
+    right: 10px;   /* Positioned to the right of the viewport */
+    z-index: 1000;
     cursor: pointer;
-    overflow: visible;
-    z-index: 1000;
-}
-
-.plus-button svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    pointer-events: auto;
-    z-index: 1000;
+    background-size: cover;
 }
 
 /* Board */
 .board {
-    background: url('board.png') no-repeat center center;
+    background: url('board.svg') no-repeat center center;
     background-size: cover;
     position: relative;
-    width: 90vw;
+    width: 150vw;
     height: 90vw;
     max-width: 90vh;
     max-height: 90vh;
     overflow: hidden;
     z-index: 1; /* Lower z-index so sprites appear on top */
+    border: 1px solid #333;
 }
 
 /* Sprite Styling */
@@ -104,7 +87,6 @@ body {
     pointer-events: none;
 }
 
-/* Trashcan and Rotation Icons */
 /* Trashcan and Rotation Icons */
 .sprite .trashcan,
 .sprite .rotation {

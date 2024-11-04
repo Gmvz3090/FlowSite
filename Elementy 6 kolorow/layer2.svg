@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="575"
+   height="575"
+   viewBox="0 0 152.13535 152.13539"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   sodipodi:docname="kwadrat orange 570 x 570.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.95849687"
+     inkscape:cx="247.26215"
+     inkscape:cy="293.16736"
+     inkscape:window-width="1224"
+     inkscape:window-height="847"
+     inkscape:window-x="217"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient14131"
+       id="linearGradient14135"
+       x1="-188.23213"
+       y1="-40.749977"
+       x2="-66.580345"
+       y2="-40.749977"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-207.29167,82.994033)" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient14131">
+      <stop
+         style="stop-color:#f29b00;stop-opacity:1"
+         offset="0"
+         id="stop14127" />
+      <stop
+         style="stop-color:#ffc154;stop-opacity:1"
+         offset="1"
+         id="stop14129" />
+    </linearGradient>
+  </defs>
+  <g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g16598"
+       transform="translate(397.00069,34.279942)">
+      <rect
+         ry="5"
+         rx="5"
+         y="-32.755951"
+         x="-395.5238"
+         height="150"
+         width="150"
+         id="rect14125"
+         style="opacity:1;fill:url(#linearGradient14135);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264583;stroke-opacity:1;paint-order:normal" />
+      <g
+         transform="translate(-0.75595238,5.2916667)"
+         id="g16591">
+        <path
+           sodipodi:type="star"
+           style="opacity:0.506;fill:#0c0b09;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.19057;paint-order:normal"
+           id="path12483-7"
+           sodipodi:sides="3"
+           sodipodi:cx="-341.44272"
+           sodipodi:cy="-239.22292"
+           sodipodi:r1="9.5217905"
+           sodipodi:r2="4.7608948"
+           sodipodi:arg1="1.2036225"
+           sodipodi:arg2="2.25082"
+           inkscape:flatsided="true"
+           inkscape:rounded="1"
+           inkscape:randomized="0"
+           d="m -338.02459,-230.33579 c -15.39295,5.92036 -15.39295,5.92036 -12.82366,-10.3705 2.56928,-16.29087 2.56928,-16.29087 15.39294,-5.92037 12.82366,10.3705 12.82366,10.3705 -2.56928,16.29087 z"
+           inkscape:transform-center-x="-1.9428201"
+           inkscape:transform-center-y="-0.86631666"
+           inkscape:export-filename="C:\Users\barba\Dokumenty\Inkscape_projekty\Flow_sysyems\yellow.png"
+           inkscape:export-xdpi="72"
+           inkscape:export-ydpi="72"
+           transform="rotate(20.386432,-954.18402,-62.17347)" />
+        <path
+           d="m -314.20573,-10.991811 c -0.92992,-0.880626 -3.23289,0.574623 -4.44106,0.616287 -2.25755,0.07818 -4.21786,-1.545708 -5.12575,-3.753381 -0.96033,-2.334961 -0.76972,-5.746344 0.40769,-8.572119 0.003,-0.0074 0.004,-0.0093 0.002,-0.0045 -0.70027,1.717848 -1.55935,3.227047 -1.89935,5.065554 -0.5639,3.047175 0.0396,5.98486 1.59895,7.859977 1.61207,1.9383978 4.11834,2.5687584 6.69645,1.8561072 0.79596,-0.220433 4.18528,-1.7189028 2.7613,-3.0681662"
+           id="path11307-5-2"
+           inkscape:connector-curvature="0"
+           style="opacity:0.257;fill:#ffe000;stroke:none;stroke-width:0.164078"
+           inkscape:transform-center-x="-138.95619"
+           inkscape:transform-center-y="79.813682"
+           inkscape:export-filename="C:\Users\barba\Dokumenty\Inkscape_projekty\Flow_sysyems\yellow.png"
+           inkscape:export-xdpi="72"
+           inkscape:export-ydpi="72" />
+      </g>
+      <path
+         sodipodi:nodetypes="csssc"
+         inkscape:connector-curvature="0"
+         id="path14779"
+         d="m -252.7196,72.693242 c 4.23802,0.1593 3.75558,4.75226 3.61581,17.259971 -0.26072,23.329637 -38.45906,22.362857 -72.36314,21.088457 -33.90408,-1.2744 42.51091,-1.2113 59.01519,-20.385187 8.25215,-9.58696 5.49413,-18.122531 9.73214,-17.963241"
+         inkscape:transform-center-y="-3.7852353"
+         inkscape:transform-center-x="1.8988968"
+         style="opacity:0.278;fill:#f28500;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.158638;stroke-opacity:1;paint-order:normal" />
+    </g>
+  </g>
+</svg>
