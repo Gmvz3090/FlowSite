@@ -59,13 +59,12 @@ body {
     background: url('board.svg') no-repeat center center;
     background-size: cover;
     position: relative;
-    width: 150vw;
-    height: 90vw;
-    max-width: 90vh;
-    max-height: 90vh;
+    width: 160vw;
+    height: 95vw;
+    max-width: 160vh;
+    max-height: 95vh;
     overflow: hidden;
     z-index: 1; /* Lower z-index so sprites appear on top */
-    border: 1px solid #333;
 }
 
 /* Sprite Styling */

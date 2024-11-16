@@ -68,13 +68,14 @@ TogetherJS.hub.on('spawn-shape', function (msg) {
 resizeBoard();
 
 function resizeBoard() {
-    const height = window.innerHeight * 0.9;
-    const width = window.innerHeight * 1.5;
+    const height = window.innerHeight; // 90% of the window height
+    const width = window.innerWidth; // Width is always 1.5 times the height
 
-    board.style.width = `${width}px`;
-    board.style.height = `${height}px`;
-    resizeSprites();
-    console.log("Resized the board and sprites.");
+    board.style.width = `${width}px`; // Set the calculated width
+    board.style.height = `${height}px`; // Set the calculated height
+
+    resizeSprites(); // Resize sprites based on the new board size
+    console.log("Resized the board and sprites with width 1.5 times the height.");
 }
 
 window.addEventListener('resize', resizeBoard);
