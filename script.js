@@ -135,9 +135,8 @@ function createShapeElement(shapeType, imageSrc, size, spriteId) {
     img.style.height = '100%';
     sprite.appendChild(img);
 
-    const { left, width, top, height } = board.getBoundingClientRect();
-    sprite.style.left = `${width / 2 - size / 2}px`; // Center within the board
-    sprite.style.top = `${height / 2 - size / 2}px`; // Center within the board
+    sprite.style.left = `47%`; // Center within the board
+    sprite.style.top = `5%`; // Position sprite just above the board
 
     sprite.proportion = 1; // Set initial proportion to 1
     createSpriteControls(sprite, size);
@@ -155,9 +154,6 @@ function addNameLabel(sprite, name) {
 }
 
 function createSpriteControls(sprite, size) {
-    const overlay = document.createElement('div');
-    overlay.className = 'sprite-overlay';
-
     const trashcan = createControl('trashcan', size, () => {
         board.removeChild(sprite);
         console.log("Sprite removed from board.");
@@ -170,31 +166,59 @@ function createSpriteControls(sprite, size) {
     });
 
     const resize = createControl('size', size);
-
     const rotation = createControl('rotation', size);
 
-    sprite.appendChild(overlay);
     sprite.appendChild(trashcan);
-    sprite.appendChild(rotation);
     sprite.appendChild(resize);
+    sprite.appendChild(rotation);
+
+    positionControls(sprite);
+
+    const observer = new ResizeObserver(() => positionControls(sprite));
+    observer.observe(sprite);
+
     console.log("Added controls to sprite.");
+}
+
+function positionControls(sprite) {
+    const size = sprite.offsetWidth; // Sprite size
+    const trashcan = sprite.querySelector('.trashcan');
+    const resize = sprite.querySelector('.size');
+    const rotation = sprite.querySelector('.rotation');
+
+    // Calculate positions for each control
+    const controlOffset = size / 6; // Offset for control placement
+
+    // Top-left (Rotation)
+    rotation.style.position = 'absolute';
+    rotation.style.left = `-${controlOffset}px`;
+    rotation.style.bottom = `-${controlOffset}px`;
+
+    // Top-right (Resize)
+    resize.style.position = 'absolute';
+    resize.style.right = `-${controlOffset}px`;
+    resize.style.top = `-${controlOffset}px`;
+
+    // Bottom-right (Trashcan)
+    trashcan.style.position = 'absolute';
+    trashcan.style.right = `-${controlOffset}px`;
+    trashcan.style.bottom = `-${controlOffset}px`;
+
+    console.log("Updated positions of sprite controls.");
 }
 
 function createControl(className, size, onClick = null) {
     const control = document.createElement('div');
     control.className = className;
-    control.style.width = `${size / 3}px`;
+    control.style.width = `${size / 3}px`; // Adjust size relative to sprite
     control.style.height = `${size / 3}px`;
-    control.style.bottom = `-${size / 6}px`;
-    if (className === 'trashcan') control.style.right = `-${size / 6}px`;
-    if (className === 'rotation') control.style.left = `-${size / 6}px`;
-    if (className === 'size') control.style.right = `-${size / 6}px`;
 
     if (onClick) control.addEventListener('click', onClick);
     console.log(`Created control: ${className}`);
 
     return control;
 }
+
 
 // Listen for TogetherJS remove-shape event
 TogetherJS.hub.on('remove-shape', function (msg) {
@@ -292,7 +316,8 @@ function makeSpriteDraggable(sprite) {
                 spriteId: sprite.id,
                 angle: newRotationAngle
             });
-        } else if (isDragging) {
+        }
+        else if (isDragging) {
             const boardRect = board.getBoundingClientRect();
             const newX = e.clientX - boardRect.left - offsetX;
             const newY = e.clientY - boardRect.top - offsetY;
@@ -305,7 +330,8 @@ function makeSpriteDraggable(sprite) {
                 newX,
                 newY
             });
-        } else if (isResizing) {
+        }
+        else if (isResizing) {
             const deltaY = startY - e.clientY;
             const scaleFactor = deltaY / 200; // Adjust scaling sensitivity
             sprite.proportion += scaleFactor; // Update the proportion value

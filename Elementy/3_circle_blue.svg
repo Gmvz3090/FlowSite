@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="575"
+   height="575"
+   viewBox="0 0 152.13542 152.13542"
+   version="1.1"
+   id="svg13342"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
+   sodipodi:docname="circle_blue.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs13336">
+    <linearGradient
+       id="linearGradient14076"
+       inkscape:collect="always">
+      <stop
+         id="stop14072"
+         offset="0"
+         style="stop-color:#6495ff;stop-opacity:0.65882355" />
+      <stop
+         id="stop14074"
+         offset="1"
+         style="stop-color:#0000ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient14062">
+      <stop
+         style="stop-color:#6495ed;stop-opacity:0.65882355"
+         offset="0"
+         id="stop14058" />
+      <stop
+         style="stop-color:#0000ff;stop-opacity:1"
+         offset="1"
+         id="stop14060" />
+    </linearGradient>
+    <radialGradient
+       id="ring"
+       cx="44.446999"
+       cy="46.328999"
+       r="84.731003"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-22.197361,-87.278272)">
+      <stop
+         stop-color="#ffc154"
+         offset="0"
+         id="stop11294" />
+      <stop
+         stop-color="#f29b00"
+         offset="1"
+         id="stop11296" />
+    </radialGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient14062"
+       id="radialGradient14066"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.9625057,-0.02313612,0.0195723,1.660206,347.42899,130.63407)"
+       cx="-356.68527"
+       cy="-210.36827"
+       fx="-356.68527"
+       fy="-210.36827"
+       r="75" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient14076"
+       id="radialGradient14070"
+       cx="25.118668"
+       cy="-41.774639"
+       fx="25.118668"
+       fy="-41.774639"
+       r="62.995003"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.6803352,-0.03801053,0.02888381,1.2768698,-13.212124,11.256145)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient14062"
+       id="radialGradient1460"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.9625057,-0.02313612,0.0195723,1.660206,347.42899,130.63407)"
+       cx="-356.68527"
+       cy="-210.36827"
+       fx="-356.68527"
+       fy="-210.36827"
+       r="75" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="495.9849"
+     inkscape:cy="657.6093"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid1458"
+       originx="0"
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="mm"
+       visible="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata13339">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1"
+       transform="translate(0,0.52916667)">
+      <g
+         id="g1472"
+         transform="translate(399.83521,265.66591)">
+        <g
+           transform="translate(-0.28496163,0.88019345)"
+           style="fill:url(#radialGradient14066);fill-opacity:1"
+           id="g14040">
+          <g
+             id="g12732"
+             transform="matrix(1.1905707,0,0,1.1905706,-377.67487,-167.44231)"
+             style="fill:url(#radialGradient1460);fill-opacity:1">
+            <path
+               inkscape:export-ydpi="72"
+               inkscape:export-xdpi="72"
+               inkscape:export-filename="C:\Users\barba\Dokumenty\Inkscape_projekty\Flow_sysyems\yellow.png"
+               inkscape:connector-curvature="0"
+               style="fill:url(#radialGradient14070);fill-opacity:1"
+               id="path11303"
+               d="m 108.56264,-19.546272 c 0,34.330004 -28.665001,62.995004 -62.995001,62.995004 -34.33,0 -62.995,-28.665 -62.995,-62.995004 0,-34.33 28.664,-62.995 62.995,-62.995 34.331,0 62.995001,28.664 62.995001,62.995" />
+          </g>
+        </g>
+        <path
+           style="opacity:0.278;fill:#4012f4;fill-opacity:1;stroke-width:1.19057"
+           inkscape:connector-curvature="0"
+           id="path11305"
+           d="m -256.64583,-221.58333 c 6.05881,35.32066 -15.03572,70.80084 -48.95986,82.3589 -35.97905,12.25929 -76.46442,-5.86118 -91.51085,-40.70918 7.23034,42.17597 50.59568,69.90198 91.91564,58.75108 42.65935,-11.51402 66.13861,-59.72139 48.55507,-100.4008" />
+        <g
+           transform="translate(4.1577381,1.5119047)"
+           id="g1442">
+          <g
+             transform="rotate(19.471449,-318.00671,-203.05753)"
+             id="g1448">
+            <g
+               id="g1433">
+              <g
+                 id="g1436">
+                <path
+                   inkscape:export-ydpi="72"
+                   inkscape:export-xdpi="72"
+                   inkscape:export-filename="C:\Users\barba\Dokumenty\Inkscape_projekty\Flow_sysyems\yellow.png"
+                   inkscape:transform-center-y="-0.86631666"
+                   inkscape:transform-center-x="-1.9428201"
+                   d="m -338.02459,-230.33579 c -15.39295,5.92036 -15.39295,5.92036 -12.82366,-10.3705 2.56928,-16.29087 2.56928,-16.29087 15.39294,-5.92037 12.82366,10.3705 12.82366,10.3705 -2.56928,16.29087 z"
+                   inkscape:randomized="0"
+                   inkscape:rounded="1"
+                   inkscape:flatsided="true"
+                   sodipodi:arg2="2.25082"
+                   sodipodi:arg1="1.2036225"
+                   sodipodi:r2="4.7608948"
+                   sodipodi:r1="9.5217905"
+                   sodipodi:cy="-239.22292"
+                   sodipodi:cx="-341.44272"
+                   sodipodi:sides="3"
+                   id="path12483"
+                   style="opacity:0.506;fill:#0c0b09;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.19057;paint-order:normal"
+                   sodipodi:type="star" />
+              </g>
+            </g>
+            <path
+               inkscape:export-ydpi="72"
+               inkscape:export-xdpi="72"
+               inkscape:export-filename="C:\Users\barba\Dokumenty\Inkscape_projekty\Flow_sysyems\yellow.png"
+               inkscape:transform-center-y="79.813682"
+               inkscape:transform-center-x="-138.95619"
+               style="opacity:0.257;fill:#ffe000;stroke:none;stroke-width:0.164078"
+               inkscape:connector-curvature="0"
+               id="path11307-5"
+               d="m -336.46195,-237.13409 c -1.17844,-0.50153 -2.83023,1.66481 -3.94821,2.12473 -2.08891,0.8597 -4.49212,0.0204 -6.11219,-1.73273 -1.71356,-1.85418 -2.72324,-5.11829 -2.60394,-8.17722 3.7e-4,-0.008 4.6e-4,-0.0101 4.3e-4,-0.005 -0.058,1.85419 -0.33754,3.56812 -0.0158,5.40991 0.5329,3.05275 2.12192,5.59621 4.23682,6.81067 2.18634,1.25542 4.75521,0.97324 6.92359,-0.59286 0.66932,-0.4839 3.32435,-3.06918 1.51955,-3.83789" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

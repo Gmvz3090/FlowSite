@@ -55,12 +55,12 @@
 		window.onLoad = validtoken;
         document.getElementById('get-room-btn').addEventListener('click', function() {
             // Send a GET request to the API
-            fetch('http://api.flow-xr.com/croom')
+            fetch('https://api.flow-xr.com/croom')
                 .then(response => response.json())
                 .then(data => {
                     if (data.roomkey) {
                         console.log("Obtained room key : " + data.roomkey);
-                        const url = 'https://dev.flow-xr.com/devenv/FlowSite/workspace.html/#&togetherjs=' + data.roomkey;
+                        const url = 'https://dev.flow-xr.com/devenv/FlowSite/workspace.html#&togetherjs=' + data.roomkey;
                         window.location.href = url;
                     } else {
                         alert('Failed to get room key.');
